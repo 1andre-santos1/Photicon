@@ -7,7 +7,7 @@ namespace Photicon.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<Photicon.Models.PhoticonDB>
     {
-        public Configuration() 
+        public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }

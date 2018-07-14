@@ -13,7 +13,7 @@ namespace Photicon.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201807141633383_init"; }
+            get { return "201807141834156_init"; }
         }
         
         string IMigrationMetadata.Source
