@@ -141,7 +141,49 @@ namespace Photicon.Controllers
                 System.IO.File.Delete(fullPath);
                 //Session["DeleteSuccess"] = "Yes";
             }
+
             return RedirectToAction("MainPage", "Home", new { Id = userId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteProfile(string Id)
+        {
+            if (!User.Identity.IsAuthenticated || Id == null)
+                return RedirectToAction("Index");
+
+            //Session["DeleteSuccess"] = "No";
+            Users userToDelete = db.Users.Where(m => m.Id == Id).Select(m => m).SingleOrDefault();
+
+            List<Pictures> pics = db.Pictures.ToList();
+            foreach (var pic in pics)
+            {
+                if (userToDelete.PicturesList.Contains(pic))
+                {
+                    List<Users> usersThatLikedPic = pic.UsersThatLiked.ToList();
+                    foreach(var u in usersThatLikedPic)
+                    {
+                        u.LikedPictures.Remove(pic);
+                        db.Users.AddOrUpdate(u);
+                    }
+
+                    userToDelete.PicturesList.Remove(pic);
+
+                    var picPath = pic.Path;
+                    string fullPicPath = Request.MapPath(picPath);
+
+                    db.Pictures.Remove(pic);
+
+                    if (System.IO.File.Exists(fullPicPath))
+                        System.IO.File.Delete(fullPicPath);
+                }
+                if(userToDelete.LikedPictures.Contains(pic))
+                    pic.UsersThatLiked.Remove(userToDelete);
+            }
+            db.Users.Remove(userToDelete);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult ViewPicture(int PictureId)

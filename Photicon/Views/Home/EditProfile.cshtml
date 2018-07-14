@@ -65,6 +65,8 @@
                         }
                     </p>
                 </div>
+                <button id="preRemovalButton" type="button" class="btn btn-danger" style="position: absolute; left: 50%; top: 95%; width:50%;">Remove</button>
+
                 @using (Html.BeginForm("EditProfile", "Home", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <p align="left">
@@ -139,6 +141,24 @@
 
 
         </div>
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                    <div class="modal-body" style="margin-top:10px;">
+                        <p style="font-size:large">Do you really want to delete your profile?</p>
+                        <p style="font-size:large">You will lose everything</p>
+                    </div>
+                    <div class="modal-footer">
+                        @using (Html.BeginForm("DeleteProfile", "Home", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" class="btn btn-danger" value="Remove" />
+                        }
+                        <button type="button" class="btn btn-default cancelRemoval">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -154,4 +174,10 @@
             $('.dropdown-menu').css('backgroundColor', 'rgba(0,0,0,0)');
         }
     );
+    $('#preRemovalButton').click(function () {
+        $('.modal').show();
+    });
+    $('.cancelRemoval').click(function () {
+        $('.modal').hide();
+    });
 </script>
