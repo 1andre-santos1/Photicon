@@ -260,6 +260,16 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="UserPictures\user14dsmny-1dse-245f-be87-1damdj6g5901_Cristina.jpg" />
+    <Content Include="UserPictures\user45fghsu-uiuy-4fgh-vbmc-32dh7huyjkom_Elsa.jpg" />
+    <Content Include="UserPictures\user908ikfh-mvj7-8901-mnbg-cv4xzxs32fsm_Sam.jpg" />
+    <Content Include="UserPictures\user90jkfar-3dfs-4d32-dcvb-2sderfge78jk_Peter.jpg" />
+    <Content Include="UserPictures\userc08ae574-78ac-1004-be81-851465786c80_Yasmin.jpg" />
+    <Content Include="UserPictures\userc08aeda9-78ad-4016-be81-851465785d93_William.jpg" />
+    <Content Include="UserPictures\userc08aeef6-78ad-4016-be74-851465764d93_Barbara.jpg" />
+    <Content Include="UserPictures\userc10ae801-789c-1004-be81-851465786000_Rui.jpg" />
+    <Content Include="UserPictures\usercarhn57-1dr2-1004-be81-8514651swoi9_Xavier.jpg" />
+    <Content Include="UserPictures\usermnhda34-1nda-4df1-67gh-d5f3d4fa5jh6_Louise.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -322,7 +332,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="UserPictures\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201807141834156_init.resx">
