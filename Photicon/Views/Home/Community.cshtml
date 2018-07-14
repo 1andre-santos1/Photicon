@@ -82,7 +82,7 @@
                                     }
                                     else
                                     {
-                                        if (picture.User.ProfilePhoto == null)
+                                        if (picture.User.ProfilePhoto == null || String.IsNullOrWhiteSpace(picture.User.ProfilePhoto))
                                         {
                                             <a href='@Url.Action("ViewOtherUserProfile", "Home",new{UserId=Model.User.Id,ViewedUserId=picture.User.Id})'>
                                                 <span><img src="~/Images/male.png" style="width:30px; height:30px;margin-top:5px;border-radius:35px; object-fit:cover;" /></span>

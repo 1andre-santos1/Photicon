@@ -260,6 +260,12 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="UserPictures\picture0_dog.jpg" />
+    <Content Include="UserPictures\picture1_feet.jpg" />
+    <Content Include="UserPictures\picture2_abyss.jpg" />
+    <Content Include="UserPictures\picture3_waiting.jpg" />
+    <Content Include="UserPictures\picture4_walk.jpg" />
+    <Content Include="UserPictures\picture5_work.jpg" />
     <Content Include="UserPictures\user14dsmny-1dse-245f-be87-1damdj6g5901_Cristina.jpg" />
     <Content Include="UserPictures\user45fghsu-uiuy-4fgh-vbmc-32dh7huyjkom_Elsa.jpg" />
     <Content Include="UserPictures\user908ikfh-mvj7-8901-mnbg-cv4xzxs32fsm_Sam.jpg" />

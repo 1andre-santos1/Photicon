@@ -9,6 +9,12 @@ namespace Photicon.Models
 {
     public class Pictures
     {
+        public Pictures()
+        {
+            TagsList = new HashSet<Tags>();
+            UsersThatLiked = new HashSet<Users>();
+        }
+
         [Key]
         public int Id { get; set; }
 

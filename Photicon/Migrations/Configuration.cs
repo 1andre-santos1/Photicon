@@ -4,6 +4,7 @@ namespace Photicon.Migrations
     using Microsoft.AspNet.Identity.EntityFramework;
     using Photicon.Models;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -71,7 +72,151 @@ namespace Photicon.Migrations
                 userManager.Create(userToInsert, "Samuel9#");
             }
 
-            
+            //seed pictures
+            if (!(context.Pictures.Any(u => u.Id == 0)))
+            {
+                var picToInsert = new Pictures { Id = 0, Description = "My dog", Path = "/UserPictures/picture0_dog.jpg", UploadDate = new DateTime(2018,05,28), Visibility = true, UserFK = "908ikfh-mvj7-8901-mnbg-cv4xzxs32fsm" };
+                var user = context.Users.Where(m => m.Id == picToInsert.UserFK).Select(m => m).SingleOrDefault();
+                
+
+                List<string> usersThatLiked = new List<string> { "Barbara", "william", "yasmin","Cris","Elsa","Sam"};
+                foreach (var name in usersThatLiked)
+                {
+                    picToInsert.Likes++;
+
+                    Users u = context.Users.Where(m => m.UserName == name).Select(m => m).SingleOrDefault();
+                    u.LikedPictures.Add(picToInsert);
+
+                    picToInsert.UsersThatLiked.Add(u);
+
+                    context.Users.AddOrUpdate(u);
+
+                }
+                user.PicturesList.Add(picToInsert);
+                picToInsert.User = user;
+                context.Users.AddOrUpdate(user);
+                context.Pictures.AddOrUpdate(picToInsert);
+            }
+            if (!(context.Pictures.Any(u => u.Id == 1)))
+            {
+                var picToInsert = new Pictures { Id = 1, Description = "My little feet", Path = "/UserPictures/picture1_feet.jpg", UploadDate = new DateTime(2018, 07, 1), Visibility = true, UserFK = "90jkfar-3dfs-4d32-dcvb-2sderfge78jk" };
+                var user = context.Users.Where(m => m.Id == picToInsert.UserFK).Select(m => m).SingleOrDefault();
+                
+
+                List<string> usersThatLiked = new List<string> { "Rui" };
+                foreach (var name in usersThatLiked)
+                {
+                    picToInsert.Likes++;
+
+                    Users u = context.Users.Where(m => m.UserName == name).Select(m => m).SingleOrDefault();
+                    u.LikedPictures.Add(picToInsert);
+
+                    picToInsert.UsersThatLiked.Add(u);
+
+                    context.Users.AddOrUpdate(u);
+
+                }
+                user.PicturesList.Add(picToInsert);
+                picToInsert.User = user;
+                context.Users.AddOrUpdate(user);
+                context.Pictures.AddOrUpdate(picToInsert);
+            }
+            if (!(context.Pictures.Any(u => u.Id == 2)))
+            {
+                var picToInsert = new Pictures { Id = 2, Description = "Me and the Abyss", Path = "/UserPictures/picture2_abyss.jpg", UploadDate = new DateTime(2018, 07, 10), Visibility = true, UserFK = "c08aeda9-78ad-4016-be81-851465785d93" };
+                var user = context.Users.Where(m => m.Id == picToInsert.UserFK).Select(m => m).SingleOrDefault();
+                
+
+                List<string> usersThatLiked = new List<string> { "Barbara", "yasmin", "Cris", "Elsa", "Sam" };
+                foreach (var name in usersThatLiked)
+                {
+                    picToInsert.Likes++;
+
+                    Users u = context.Users.Where(m => m.UserName == name).Select(m => m).SingleOrDefault();
+                    u.LikedPictures.Add(picToInsert);
+
+                    picToInsert.UsersThatLiked.Add(u);
+
+                    context.Users.AddOrUpdate(u);
+
+                }
+                user.PicturesList.Add(picToInsert);
+                picToInsert.User = user;
+                context.Users.AddOrUpdate(user);
+                context.Pictures.AddOrUpdate(picToInsert);
+            }
+            if (!(context.Pictures.Any(u => u.Id == 3)))
+            {
+                var picToInsert = new Pictures { Id = 3, Description = "Waiting...", Path = "/UserPictures/picture3_waiting.jpg", UploadDate = new DateTime(2018, 03, 2), Visibility = true, UserFK = "carhn57-1dr2-1004-be81-8514651swoi9" };
+                var user = context.Users.Where(m => m.Id == picToInsert.UserFK).Select(m => m).SingleOrDefault();
+                
+
+                List<string> usersThatLiked = new List<string> { "Barbara", "william", "yasmin", "Cris" };
+                foreach (var name in usersThatLiked)
+                {
+                    picToInsert.Likes++;
+
+                    Users u = context.Users.Where(m => m.UserName == name).Select(m => m).SingleOrDefault();
+                    u.LikedPictures.Add(picToInsert);
+
+                    picToInsert.UsersThatLiked.Add(u);
+
+                    context.Users.AddOrUpdate(u);
+
+                }
+                user.PicturesList.Add(picToInsert);
+                picToInsert.User = user;
+                context.Users.AddOrUpdate(user);
+                context.Pictures.AddOrUpdate(picToInsert);
+            }
+            if (!(context.Pictures.Any(u => u.Id == 4)))
+            {
+                var picToInsert = new Pictures { Id = 4, Description = "Morning Walk", Path = "/UserPictures/picture4_walk.jpg", UploadDate = new DateTime(2018, 01, 4), Visibility = true, UserFK = "c08ae574-78ac-1004-be81-851465786c80" };
+                var user = context.Users.Where(m => m.Id == picToInsert.UserFK).Select(m => m).SingleOrDefault();
+               
+
+                List<string> usersThatLiked = new List<string> { "Barbara", "Cris", "Sam" };
+                foreach (var name in usersThatLiked)
+                {
+                    picToInsert.Likes++;
+
+                    Users u = context.Users.Where(m => m.UserName == name).Select(m => m).SingleOrDefault();
+                    u.LikedPictures.Add(picToInsert);
+
+                    picToInsert.UsersThatLiked.Add(u);
+
+                    context.Users.AddOrUpdate(u);
+
+                }
+                user.PicturesList.Add(picToInsert);
+                picToInsert.User = user;
+                context.Users.AddOrUpdate(user);
+                context.Pictures.AddOrUpdate(picToInsert);
+            }
+            if (!(context.Pictures.Any(u => u.Id == 5)))
+            {
+                var picToInsert = new Pictures { Id = 5, Description = "Working Hours", Path = "/UserPictures/picture5_work.jpg", UploadDate = new DateTime(2018, 04, 2), Visibility = true, UserFK = "c08ae574-78ac-1004-be81-851465786c80" };
+                var user = context.Users.Where(m => m.Id == picToInsert.UserFK).Select(m => m).SingleOrDefault();
+                
+
+                List<string> usersThatLiked = new List<string> { "Barbara" };
+                foreach (var name in usersThatLiked)
+                {
+                    picToInsert.Likes++;
+
+                    Users u = context.Users.Where(m => m.UserName == name).Select(m => m).SingleOrDefault();
+                    u.LikedPictures.Add(picToInsert);
+
+                    picToInsert.UsersThatLiked.Add(u);
+
+                    context.Users.AddOrUpdate(u);
+
+                }
+                user.PicturesList.Add(picToInsert);
+                picToInsert.User = user;
+                context.Users.AddOrUpdate(user);
+                context.Pictures.AddOrUpdate(picToInsert);
+            }
         }
     }
 }

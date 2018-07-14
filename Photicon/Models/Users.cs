@@ -13,6 +13,12 @@ namespace Photicon.Models
 {
     public class Users : IdentityUser
     {
+        public Users()
+        {
+            LikedPictures = new HashSet<Pictures>();
+            PicturesList = new HashSet<Pictures>();
+        }
+
         public string ProfilePhoto { get; set; }
         public virtual ICollection<Pictures> LikedPictures { get; set; }
 
