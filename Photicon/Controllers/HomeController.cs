@@ -149,7 +149,7 @@ namespace Photicon.Controllers
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Index");
             Pictures pic = db.Pictures.Where(m => m.Id == PictureId).Select(m => m).SingleOrDefault();
-            Users user = pic.User;
+            Users user = pic.User;//
 
             var model = new UserPictureViewModels { User = user, Picture = pic };
 
