@@ -51,23 +51,23 @@
         <div class="container text-center">
             <div id="containerLeft" style="float:left;">
                 <div class="picContainer" style="display:inline-block;position:relative; width:50%; margin-bottom:10px;float:left;">
-                    <div style="position:absolute; background-color:rgba(0,0,0,0.65); color:white;bottom:0;height:70px;width:350px; padding:20px 20px 0px 20px; display:block;">
+                    <div style="position:absolute; background-color:rgba(0,0,0,0.65); color:white;bottom:0;height:70px;width:400px; padding:20px 20px 0px 20px; display:block;">
                         <span style="font-size:xx-large;">@Model.ViewedUser.UserName</span>
                     </div>
                     <p align="left" style="margin-bottom:0px;">
 
                         @if (Model.ViewedUser.ProfilePhoto == null)
                         {
-                            <img src="~/Images/male.png" style="width: 350px; height: 300px; object-fit: cover;" id="imageShowcase" />
+                            <img src="~/Images/male.png" style="width: 400px; height: 350px; object-fit: cover;" id="imageShowcase" />
                         }
                         else
                         {
-                            <img src="@Model.ViewedUser.ProfilePhoto" style="width: 350px; height: 300px; object-fit: cover;" id="imageShowcase" />
+                            <img src="@Model.ViewedUser.ProfilePhoto" style="width: 400px; height: 350px; object-fit: cover;" id="imageShowcase" />
                         }
                     </p>
                 </div>
             </div>
-            <p style="font-size:xx-large;">Information</p>
+            <p style="font-size:xx-large;background-color:#222;">Information</p>
             <p style="margin-bottom:0px;">
                 <span style="font-size:x-large;">
                     Pictures Shared With The Community
