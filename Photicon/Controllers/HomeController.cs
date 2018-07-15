@@ -388,6 +388,16 @@ namespace Photicon.Controllers
                 db.Pictures.AddOrUpdate(PicBeingLiked);
                 db.SaveChanges();
             }
+            else
+            {
+                UserLikingPicture.LikedPictures.Remove(PicBeingLiked);
+                PicBeingLiked.UsersThatLiked.Remove(UserLikingPicture);
+                PicBeingLiked.Likes--;
+
+                db.Users.AddOrUpdate(UserLikingPicture);
+                db.Pictures.AddOrUpdate(PicBeingLiked);
+                db.SaveChanges();
+            }
 
             return RedirectToAction("Community", "Home", new { Id = UserLikingPicture.Id });
         }

@@ -82,9 +82,20 @@
                                         @if (picture.User != Model.User)
                                         {
                                             <a href="@Url.Action("LikePicture","Home",new { UserId = Model.User.Id,PictureId = picture.Id })" class="popoverLikes">
-                                                <span style="float:left;">
-                                                    <img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />
-                                                </span>
+                                                @{
+                                                    if (Model.User.LikedPictures.Contains(picture))
+                                                    {
+                                                        <span style="float:left;">
+                                                            <img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span style="float:left;">
+                                                            <img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;opacity:0.6;" />
+                                                        </span>
+                                                    }
+                                                }
                                             </a>
                                         }
                                         else
