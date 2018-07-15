@@ -8,6 +8,11 @@ namespace Photicon.Models
 {
     public class Tags
     {
+        public Tags()
+        {
+            PicturesList = new HashSet<Pictures>();
+        }
+
         [Key]
         public int Id { get; set; }
 

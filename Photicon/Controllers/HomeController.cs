@@ -53,7 +53,7 @@ namespace Photicon.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddPicture(HttpPostedFileBase file, string Id, string PictureDescription, bool Visibility, bool IsProfilePicture)
+        public ActionResult AddPicture(HttpPostedFileBase file, string Id, string PictureDescription, bool Visibility, bool IsProfilePicture, ICollection<string> Tag)
         {
 
             if (!User.Identity.IsAuthenticated || Id == null)
@@ -74,7 +74,30 @@ namespace Photicon.Controllers
                     pic.Description = PictureDescription;
                     pic.Link = "";
                     pic.Path = path.Substring(path.IndexOf("UserPictures") - 1);
-                    pic.TagsList = new List<Tags>();
+                    if (Tag != null)
+                    {
+                        foreach (var tag in Tag)
+                        {
+                            if (db.Tags.Any(m => m.Name == tag))
+                            {
+                                Tags t = db.Tags.Where(m => m.Name == tag).Select(m => m).SingleOrDefault();
+                                t.PicturesList.Add(pic);
+                                pic.TagsList.Add(t);
+                                db.Tags.AddOrUpdate(t);
+                            }
+                            else
+                            {
+                                Tags t = new Tags();
+                                t.Id = db.Tags.Count() + 1;
+                                t.Name = tag;
+                                t.PicturesList.Add(pic);
+                                pic.TagsList.Add(t);
+                                db.Tags.AddOrUpdate(t);
+                            }
+                        }
+                    }
+
+
                     pic.Likes = 0;
                     pic.Visibility = !Visibility;
                     pic.UploadDate = DateTime.Now.Date;
@@ -161,7 +184,7 @@ namespace Photicon.Controllers
                 if (userToDelete.PicturesList.Contains(pic))
                 {
                     List<Users> usersThatLikedPic = pic.UsersThatLiked.ToList();
-                    foreach(var u in usersThatLikedPic)
+                    foreach (var u in usersThatLikedPic)
                     {
                         u.LikedPictures.Remove(pic);
                         db.Users.AddOrUpdate(u);
@@ -177,7 +200,7 @@ namespace Photicon.Controllers
                     if (System.IO.File.Exists(fullPicPath))
                         System.IO.File.Delete(fullPicPath);
                 }
-                if(userToDelete.LikedPictures.Contains(pic))
+                if (userToDelete.LikedPictures.Contains(pic))
                     pic.UsersThatLiked.Remove(userToDelete);
             }
             db.Users.Remove(userToDelete);
@@ -209,7 +232,7 @@ namespace Photicon.Controllers
 
             return View(model);
         }
-        
+
         public ActionResult DownloadPicture(string PicturePath)
         {
             if (!User.Identity.IsAuthenticated)
@@ -220,7 +243,7 @@ namespace Photicon.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
-        public ActionResult ViewOtherUserProfile(string UserId,string ViewedUserId)
+        public ActionResult ViewOtherUserProfile(string UserId, string ViewedUserId)
         {
             if (!User.Identity.IsAuthenticated || UserId == null)
                 return RedirectToAction("Index");
@@ -228,7 +251,7 @@ namespace Photicon.Controllers
             Users user = db.Users.Where(m => m.Id == UserId).Select(m => m).SingleOrDefault();
             Users viewedUser = db.Users.Where(m => m.Id == ViewedUserId).Select(m => m).SingleOrDefault();
 
-            var model = new CommunityProfilesViewModels {User = user,ViewedUser = viewedUser};
+            var model = new CommunityProfilesViewModels { User = user, ViewedUser = viewedUser };
             return View(model);
         }
 

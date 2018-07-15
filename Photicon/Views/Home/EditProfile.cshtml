@@ -65,7 +65,7 @@
                         }
                     </p>
                 </div>
-                <button id="preRemovalButton" type="button" class="btn btn-danger" style="position: absolute; left: 50%; top: 95%; width:50%;">Remove</button>
+                <button id="preRemovalButton" type="button" class="btn btn-danger" style="position: absolute; left: 50%; top: 95%; width:50%;">Delete Profile</button>
 
                 @using (Html.BeginForm("EditProfile", "Home", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
@@ -138,8 +138,6 @@
                     }
                 </span>
             </p>
-
-
         </div>
         <div class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
