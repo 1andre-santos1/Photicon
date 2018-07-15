@@ -47,12 +47,12 @@
         </header>
         <div class="container text-center">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding:0">
-                <span style="font-size:xx-large;float:left;margin-bottom:10px;">@Model.Picture.Description</span>
+                <span id="PictureDescriptionText" style="font-size:xx-large;float:left;margin-bottom:10px;">@Model.Picture.Description</span>
                 <div class="picContainer" style="display:inline-block;position:relative; width:100%; margin-bottom:10px;float:left;">
                     <div style="position:absolute; background-color:rgba(0,0,0,0.65); color:white;bottom:0;height:70px;width:100%; padding:20px 20px 0px 20px; display:block;">
                         <span style="float:left;"><img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />@Model.Picture.Likes</span>
                         <span style="font-size:large; float:right;">@Model.Picture.UploadDate.Day/@Model.Picture.UploadDate.Month/@Model.Picture.UploadDate.Year</span>
-                        <div style="margin:auto;width:50%;">
+                        <div id="tagContainer" style="margin:auto;width:50%;">
                             @{
                                 Random r = new Random();
                                 foreach (var tag in Model.Picture.TagsList)
@@ -61,16 +61,16 @@
                                     switch (n)
                                     {
                                         case 0:
-                                            <div id="tagShowcase" style="width:30%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            <div class="tagShowcase" style="width:30%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                             break;
                                         case 1:
-                                            <div id="tagShowcase" style="width:30%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            <div class="tagShowcase" style="width:30%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                             break;
                                         case 2:
-                                            <div id="tagShowcase" style="width:30%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            <div class="tagShowcase" style="width:30%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                             break;
                                         case 3:
-                                            <div id="tagShowcase" style="width:30%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            <div class="tagShowcase" style="width:30%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                             break;
                                     }
                                 }
@@ -86,23 +86,46 @@
                     @Html.AntiForgeryToken()
                     <input type="submit" class="btn btn-default" value="Photicon Tools" style="width:100%; margin-bottom:10px; font-size:large;" />
                 }
-                <button id="preRemovalButton" type="button" class="btn btn-danger" style="width:100%; font-size:large;margin-bottom:10px;">Delete Picture</button>
-
-                <label style="font-size:x-large">Private </label>
-                @{
-                    bool vis = !Model.Picture.Visibility;
-                    @Html.CheckBox("Visibility", vis)
+                @using (Html.BeginForm("DownloadPicture", "Home", new { PicturePath = @Model.Picture.Path }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" class="btn btn-warning" value="Download" style="width:100%; margin-bottom:10px; font-size:large;" />
                 }
+                <button id="preRemovalButton" type="button" class="btn btn-danger" style="width:100%; font-size:large;margin-bottom:10px;">Delete Picture</button>
                 <br />
-                <a href="@Url.Action("DownloadPicture", "Home",new {PicturePath = @Model.Picture.Path })">
-                    <img src="~/Images/download.png" style="margin-bottom: 20px; ">
-                </a>
                 <br />
-                <input type="submit" class="btn btn-success" value="Save Changes" />
-
+                @using (Html.BeginForm("ViewPicture", "Home", new { PictureId = Model.Picture.Id, UserId = Model.User.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <p align="left">
+                        <label style="font-size:x-large; margin-right:10px;">Private </label>
+                        @{bool vis = !Model.Picture.Visibility;}
+                        @Html.CheckBox("Visibility", vis, new { id = "visibilityCheckbox" })
+                        <br />
+                        <label style="font-size:x-large;margin-right:10px;">Set as Profile Picture</label>@Html.CheckBox("IsProfilePicture")
+                        <div id="tagContainerHidden" style="text-align:left;display:none;">
+                            @{
+                                foreach (var tag in Model.Picture.TagsList)
+                                {
+                                    <input value="@tag.Name" name="Tag" class="tagShowcase" />
+                                }
+                            }
+                        </div>
+                    </p>
+                    <p align="left">
+                        <button id="addTagButton" type="button" class="btn btn-default">Add Tag</button>
+                    </p>
+                    <p align="left">
+                        <label>Description:</label>
+                        <br />
+                        <textarea id="PictureDescriptionInput" name="PictureDescription" rows="2" cols="55" maxlength="20">@Model.Picture.Description</textarea>
+                    </p>
+                    <p align="left">
+                        <input type="submit" class="btn btn-success" value="Save Changes" />
+                    </p>
+                }
             </div>
         </div>
-        <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal removePicture" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
                     <div class="modal-body" style="margin-top:10px;">
@@ -120,9 +143,59 @@
                 </div>
             </div>
         </div>
+        <div class="modal infoTag" tabindex="-1" role="dialog" style="display:none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                    <div class="modal-body" style="margin-top:10px;">
+                        <span style="font-size:xx-large;">Tag</span>
+                        <br />
+                        <br />
+                        <div id="tagContainerModal">
+                        </div>
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger removeInfoTag">Remove Tag</button>
+                        <button type="button" class="btn btn-default cancelInfoTag">Return</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal warningAddTag" tabindex="-1" role="dialog" style="display:none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                    <div class="modal-body" style="margin-top:10px;">
+                        <span style="font-size:xx-large;">You can't add more than 6 tags to a picture!</span>
+                        <br />
+                        <br />
+                        <span style="font-size:large;">Choose Wisely</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default cancelWarningAddTag">Return</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal addTagModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                    <div class="modal-header">
+                        <p style="font-size:x-large">Add Tag</p>
+                    </div>
+                    <div class="modal-body" style="margin-top:10px;">
+                        <span>Name </span><input id="tagInput" type="text" name="tagInput" value="" placeholder="Tag Name" maxlength="6" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success addTagModalButton">Add Tag</button>
+                        <button type="button" class="btn btn-default cancelAddTag">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
+    var tagsAdded = 0;
     $(".dropdown").hover(
         function (event) {
             $('.dropdown-menu').css('display', 'block');
@@ -136,9 +209,90 @@
         }
     );
     $('#preRemovalButton').click(function () {
-        $('.modal').show();
+        $('.removePicture').show();
     });
     $('.cancelRemoval').click(function () {
-        $('.modal').hide();
+        $('.removePicture').hide();
     });
+    $('.removeInfoTag').click(function () {
+        //remove a tag mostrada do tag container
+        $('#tagContainer').children('.tagShowcase').each(function () {
+            if ($(this).text() === $('#tagContainerModal .tagShowcase').text())
+                $(this).remove();
+        });
+        //remove a tag mostrada do tag container hidden
+        $('#tagContainerHidden').children('.tagShowcase').each(function () {
+            if ($(this).val() === $('#tagContainerModal .tagShowcase').text())
+                $(this).remove();
+        });
+        tagsAdded--;
+        $('.infoTag').hide();
+    });
+    $('.cancelInfoTag').click(function () {
+        //esconde modal
+        $('.infoTag').hide();
+    });
+    $('#PictureDescriptionInput').keyup(function () {
+        $('#PictureDescriptionText').text($('#PictureDescriptionInput').val());
+    });
+    $('#addTagButton').click(function () {
+        if (tagsAdded < 6)
+            $('.addTagModal').show();
+        else
+            $('.warningAddTag').show();
+    });
+    $('.cancelAddTag').click(function () {
+        $('.addTagModal').hide();
+    });
+    $('.cancelWarningAddTag').click(function () {
+        $('.warningAddTag').hide();
+    });
+    $('.tagShowcase').click(function () {
+        $('.infoTag').show();
+        $('#tagContainerModal').empty();
+        var div = this.cloneNode(true);
+        $('#tagContainerModal').append(div);
+    });
+    $('.addTagModalButton').click(function () {
+        tagsAdded = $('input.tagShowcase').length;
+        var divTag = document.createElement('div');
+        divTag.textContent = $('#tagInput').val();
+        divTag.value = divTag.textContent;
+        divTag.name = "Tag";
+        $(divTag).addClass('tagShowcase');
+        divTag.addEventListener('click', function () {
+            //mostrar modal com a tag
+            $('.infoTag').show();
+            $('#tagContainerModal').empty();
+            var div = divTag.cloneNode(true);
+            $('#tagContainerModal').append(div);
+        });
+        var n = getRandomInt(0, 3);
+        switch (n) {
+            case 0:
+                divTag.style = "width:30%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+            case 1:
+                divTag.style = "width:30%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+            case 2:
+                divTag.style = "width:30%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+            case 3:
+                divTag.style = "width:30%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+        }
+        $('#tagContainer').append(divTag);
+
+        var divTagHidden = document.createElement('input');
+        divTagHidden.value = divTag.textContent;
+        divTagHidden.name = "Tag";
+        $(divTagHidden).addClass('tagShowcase');
+        $('#tagContainerHidden').append(divTagHidden);
+        $('.addTagModal').hide();
+        tagsAdded++;
+    });
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 </script>

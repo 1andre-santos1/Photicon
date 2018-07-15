@@ -85,7 +85,7 @@
                         <textarea id="PictureDescriptionInput" name="PictureDescription" rows="2" cols="55" maxlength="20"></textarea>
                     </p>
                     <p align="left">
-                        <input type="submit" class="btn btn-success" value="Save Changes" />
+                        <input type="submit" class="btn btn-success" value="Upload Picture" />
                     </p>
 
 
@@ -181,6 +181,7 @@
             if ($(this).val() === $('#tagContainerModal .tagShowcase').text())
                 $(this).remove();
         });
+        tagsAdded--;
         $('.infoTag').hide();
     });
     $('.cancelInfoTag').click(function () {

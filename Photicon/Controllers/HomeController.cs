@@ -97,7 +97,6 @@ namespace Photicon.Controllers
                         }
                     }
 
-
                     pic.Likes = 0;
                     pic.Visibility = !Visibility;
                     pic.UploadDate = DateTime.Now.Date;
@@ -219,6 +218,67 @@ namespace Photicon.Controllers
             var model = new UserPictureViewModels { User = user, Picture = pic };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ViewPicture(int PictureId,string UserId, ICollection<string> Tag,bool Visibility,bool IsProfilePicture, string PictureDescription)
+        {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("Index");
+
+            Pictures pic = db.Pictures.Where(m => m.Id == PictureId).Select(m => m).SingleOrDefault();
+            Users user = pic.User;
+
+            pic.Visibility = !Visibility;
+            pic.Description = PictureDescription;
+            if (IsProfilePicture)
+            {
+                user.ProfilePhoto = pic.Path;
+            }
+            for(int tagIndex = 0; tagIndex < pic.TagsList.Count; tagIndex++)
+            {
+                Tags tag = pic.TagsList.ElementAt(tagIndex);
+                if(Tag == null)
+                {
+                    tag.PicturesList.Remove(pic);
+                    pic.TagsList.Remove(tag);
+                    db.Tags.AddOrUpdate(tag);
+                    tagIndex--;
+                }
+                else if (!Tag.Contains(tag.Name))
+                {
+                    tag.PicturesList.Remove(pic);
+                    pic.TagsList.Remove(tag);
+                    db.Tags.AddOrUpdate(tag);
+                    tagIndex--;
+                }
+            }
+            if (Tag != null)
+            {
+                foreach (var tag in Tag)
+                {
+                    if (db.Tags.Any(m => m.Name == tag))
+                    {
+                        Tags t = db.Tags.Where(m => m.Name == tag).Select(m => m).SingleOrDefault();
+                        t.PicturesList.Add(pic);
+                        pic.TagsList.Add(t);
+                        db.Tags.AddOrUpdate(t);
+                    }
+                    else
+                    {
+                        Tags t = new Tags();
+                        t.Id = db.Tags.Count() + 1;
+                        t.Name = tag;
+                        t.PicturesList.Add(pic);
+                        pic.TagsList.Add(t);
+                        db.Tags.AddOrUpdate(t);
+                    }
+                }
+            }
+            db.Pictures.AddOrUpdate(pic);
+            db.SaveChanges();
+
+            return RedirectToAction("MainPage", "Home", new { Id = UserId });
         }
 
         public ActionResult EditPicture(int PictureId)
