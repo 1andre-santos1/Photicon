@@ -40,6 +40,7 @@ namespace Photicon.Controllers
             Users user = new Users();
             user = db.Users.Where(m => m.Id == Id).Select(m => m).SingleOrDefault();
             user.PicturesList = db.Pictures.Where(m => m.UserFK == user.Id).Select(m => m).ToList();
+            user.PicturesList = user.PicturesList.OrderByDescending(x => x.UploadDate).ToList();
             return View(user);
         }
 
@@ -367,6 +368,8 @@ namespace Photicon.Controllers
             foreach (var picture in db.Pictures)
                 if (picture.Visibility)
                     pics.Add(picture);
+
+            pics = pics.OrderByDescending(m => m.UploadDate).ToList();
 
             var model = new UserAllPicturesViewModels { User = user, Pictures = pics };
 
