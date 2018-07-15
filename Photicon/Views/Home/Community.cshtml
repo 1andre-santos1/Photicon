@@ -142,16 +142,16 @@
                                                 switch (n)
                                                 {
                                                     case 0:
-                                                        <div id="tagShowcase" style="width:30%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                        <div id="tagShowcase" style="width:40%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                                         break;
                                                     case 1:
-                                                        <div id="tagShowcase" style="width:30%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                        <div id="tagShowcase" style="width:40%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                                         break;
                                                     case 2:
-                                                        <div id="tagShowcase" style="width:30%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                        <div id="tagShowcase" style="width:40%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                                         break;
                                                     case 3:
-                                                        <div id="tagShowcase" style="width:30%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                        <div id="tagShowcase" style="width:40%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
                                                         break;
                                                 }
                                             }
@@ -171,7 +171,14 @@
                     <h1 style="margin: auto;"></h1>
                 }
             </div>
+
         </div>
+    </div>
+    <div id="popup_picture" style="display: none;">
+        <img src="" width="350" height="200" style="object-fit:cover;" id="pop_pictureImage">
+        <button type="button" class="close" aria-label="Close">
+            <img width="50px" height="50px" style="opacity:1" src="~/Images/btn_exit.png" />
+        </button>
     </div>
 </div>
 <script>
@@ -195,4 +202,20 @@
             $(this).siblings('.popup').css('display', 'none');
         }
     );
+
+    var isOnPicture = false;
+    $(".picture").click(function () {
+        if (isOnPicture)
+            return;
+
+        isOnPicture = true;
+        $('#pop_pictureImage').attr("src", $(this).attr('src'));
+        $("#popup_picture").show("fast");
+        $("#gallery").fadeTo("slow", 0.2);
+    });
+    $(".close").click(function () {
+        isOnPicture = false;
+        $("#popup_picture").hide("fast");
+        $("#gallery").fadeTo("slow", 1);
+    });
 </script>
