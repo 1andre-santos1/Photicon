@@ -49,18 +49,48 @@
         </header>
         <div class="container text-center">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding:0">
-                <img class="picture" src="@Model.Picture.Path" style="margin-bottom: 20px; width:100%;">
-                <button id="preRemovalButton" type="button" class="btn btn-danger" style="position: absolute; left: 50%; top: 95%; width:50%;" >Remove</button>
+                <span style="font-size:xx-large;float:left;margin-bottom:10px;">@Model.Picture.Description</span>
+                <div class="picContainer" style="display:inline-block;position:relative; width:100%; margin-bottom:10px;float:left;">
+                    <div style="position:absolute; background-color:rgba(0,0,0,0.65); color:white;bottom:0;height:70px;width:100%; padding:20px 20px 0px 20px; display:block;">
+                        <span style="float:left;"><img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />@Model.Picture.Likes</span>
+                        <span style="font-size:large; float:right;">@Model.Picture.UploadDate.Day/@Model.Picture.UploadDate.Month/@Model.Picture.UploadDate.Year</span>
+                        <div style="margin:auto;width:50%;">
+                            @{
+                                Random r = new Random();
+                                foreach (var tag in Model.Picture.TagsList)
+                                {
+                                    int n = r.Next(0, 4);
+                                    switch (n)
+                                    {
+                                        case 0:
+                                            <div id="tagShowcase" style="width:30%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                        case 1:
+                                            <div id="tagShowcase" style="width:30%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                        case 2:
+                                            <div id="tagShowcase" style="width:30%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                        case 3:
+                                            <div id="tagShowcase" style="width:30%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                    <p align="left" style="margin-bottom:0px;">
+                        <img src="@Model.Picture.Path" style="width: 100%; height: 350px; object-fit: cover;" id="imageShowcase">
+                    </p>
+                </div>
                 @using (Html.BeginForm("EditPicture", "Home", new { PictureId = @Model.Picture.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input type="submit" class="btn btn-default" value="Edit" style="position: absolute; left: 0%; top: 95%; width:50%;" />
+                    <input type="submit" class="btn btn-default" value="Photicon Tools" style="width:100%; margin-bottom:10px; font-size:large;" />
                 }
-                <p>Description: @Model.Picture.Description</p>
-                <p>Upload Date: @Model.Picture.UploadDate.Day/@Model.Picture.UploadDate.Month/@Model.Picture.UploadDate.Year</p>
+                <button id="preRemovalButton" type="button" class="btn btn-danger" style="width:100%; font-size:large;margin-bottom:10px;">Delete Picture</button>
 
-
-                <label>Private </label>
+                <label style="font-size:x-large">Private </label>
                 @{
                     bool vis = !Model.Picture.Visibility;
                     @Html.CheckBox("Visibility", vis)
@@ -69,9 +99,12 @@
                 <a href="@Url.Action("DownloadPicture", "Home",new {PicturePath = @Model.Picture.Path })">
                     <img src="~/Images/download.png" style="margin-bottom: 20px; ">
                 </a>
+                <br />
+                <input type="submit" class="btn btn-success" value="Save Changes" />
+
             </div>
         </div>
-        <div class="modal" tabindex="-1" role="dialog" >
+        <div class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
                     <div class="modal-body" style="margin-top:10px;">
