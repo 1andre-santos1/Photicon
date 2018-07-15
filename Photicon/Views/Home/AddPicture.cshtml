@@ -46,99 +46,139 @@
             </div>
         </header>
         <div class="container text-center">
-            <p align="left">
-                <img src="/Images/nopreview.png" style="width: 400px; height: 350px; object-fit: cover;" id="imageShowcase" />
-            </p>
-            @using (Html.BeginForm("AddPicture", "Home", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <p align="left">
-            <input type="file" name="file" id="imageFile" onchange="readfile(this);" style="margin-bottom: 10px; margin-right: 15px;" accept="image/*" />
-            <br />
-            <label>Private </label>@Html.CheckBox("Visibility")
-            <label>Set as Profile Picture </label>@Html.CheckBox("IsProfilePicture")
-            <div id="tagContainer" style="text-align:left;"></div>
-        </p>
-
-        <p align="left">
-            <button id="addTagButton" type="button" class="btn btn-default">Add Tag</button>
-        </p>
-        <p align="left">
-            <label>Add a little description:</label>
-            <br />
-            <textarea name="PictureDescription" rows="2" cols="55" maxlength="20"></textarea>
-        </p>
-        <p align="left">
-            <input type="submit" class="btn btn-success" value="Save Changes" />
-        </p>
-
-
-}
-            <div class="modal addTagModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
-                        <div class="modal-header">
-                            <p style="font-size:x-large">Add Tag</p>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding:0">
+                <span id="PictureDescriptionText" style="font-size:xx-large;float:left;margin-bottom:10px;">Your Description</span>
+                <div class="picContainer" style="display:inline-block;position:relative; width:100%; margin-bottom:10px;float:left;">
+                    <div style="position:absolute; background-color:rgba(0,0,0,0.65); color:white;bottom:0;height:70px;width:100%; padding:20px 20px 0px 20px; display:block;">
+                        <span style="font-size:large; float:right;">@DateTime.Now.Day/@DateTime.Now.Month/@DateTime.Now.Year</span>
+                        <div id="tagContainer" style="margin:auto;width:50%;">
                         </div>
-                        <div class="modal-body" style="margin-top:10px;">
-                            <span>Name </span><input id="tagInput" type="text" name="tagInput" value="" placeholder="Tag Name" />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success addTagModalButton">Add Tag</button>
-                            <button type="button" class="btn btn-default cancelAddTag">Cancel</button>
+                    </div>
+                    <p align="left" style="margin-bottom:0px;">
+                        <img src="/Images/nopreview.png" style="width: 100%; height: 350px; object-fit: cover;" id="imageShowcase">
+                    </p>
+                </div>
+                <br />
+                <br />
+                @using (Html.BeginForm("AddPicture", "Home", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <p align="left">
+                        <input type="file" name="file" id="imageFile" onchange="readfile(this);" style="margin-bottom: 10px; margin-right: 15px;" accept="image/*" />
+                        <br />
+                        <label>Private </label>@Html.CheckBox("Visibility")
+                        <label>Set as Profile Picture </label>@Html.CheckBox("IsProfilePicture")
+                        <div id="tagContainerHidden" style="text-align:left;display:none;"></div>
+                    </p>
+
+                    <p align="left">
+                        <button id="addTagButton" type="button" class="btn btn-default">Add Tag</button>
+                    </p>
+                    <p align="left">
+                        <label>Add a little description:</label>
+                        <br />
+                        <textarea id="PictureDescriptionInput" name="PictureDescription" rows="2" cols="55" maxlength="20"></textarea>
+                    </p>
+                    <p align="left">
+                        <input type="submit" class="btn btn-success" value="Save Changes" />
+                    </p>
+
+
+                }
+                <div class="modal addTagModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                            <div class="modal-header">
+                                <p style="font-size:x-large">Add Tag</p>
+                            </div>
+                            <div class="modal-body" style="margin-top:10px;">
+                                <span>Name </span><input id="tagInput" type="text" name="tagInput" value="" placeholder="Tag Name" maxlength="6"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success addTagModalButton">Add Tag</button>
+                                <button type="button" class="btn btn-default cancelAddTag">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal warningAddTag" tabindex="-1" role="dialog" style="display:none;">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
-                        <div class="modal-body" style="margin-top:10px;">
-                            <span style="font-size:xx-large;">You can't add more than 6 tags to a picture!</span>
-                            <br />
-                            <br />
-                            <span style="font-size:large;">Choose Wisely</span>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default cancelWarningAddTag">Return</button>
+                <div class="modal warningAddTag" tabindex="-1" role="dialog" style="display:none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                            <div class="modal-body" style="margin-top:10px;">
+                                <span style="font-size:xx-large;">You can't add more than 6 tags to a picture!</span>
+                                <br />
+                                <br />
+                                <span style="font-size:large;">Choose Wisely</span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default cancelWarningAddTag">Return</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        var tagsAdded = 0;
-        $(".dropdown").hover(
-            function (event) {
-                $('.dropdown-menu').css('display', 'block');
-                $(this).css('backgroundColor', 'rgba(0,0,0,0.2)');
-                $('.dropdown-menu').css('backgroundColor', 'rgba(0,0,0,0.2)');
-            },
-            function (event) {
-                $('.dropdown-menu').css('display', 'none');
-                $(this).css('backgroundColor', 'rgba(0,0,0,0)');
-                $('.dropdown-menu').css('backgroundColor', 'rgba(0,0,0,0)');
-            }
-        );
-        $('#addTagButton').click(function () {
-            if(tagsAdded < 6)
-                $('.addTagModal').show();
-            else
-                $('.warningAddTag').show();
-        });
-        $('.cancelAddTag').click(function () {
-            $('.addTagModal').hide();
-        });
-        $('.cancelWarningAddTag').click(function () {
-            $('.warningAddTag').hide();
-        });
-        $('.addTagModalButton').click(function () {
-            var buttonTag = document.createElement('input');
-            buttonTag.textContent = $('#tagInput').val();
-            buttonTag.value = buttonTag.textContent;
-            buttonTag.name = "Tag";
-            $('#tagContainer').append(buttonTag);
-            $('.addTagModal').hide();
-            tagsAdded++;
-        });
-    </script>
+</div>
+<script>
+    var tagsAdded = 0;
+    $(".dropdown").hover(
+        function (event) {
+            $('.dropdown-menu').css('display', 'block');
+            $(this).css('backgroundColor', 'rgba(0,0,0,0.2)');
+            $('.dropdown-menu').css('backgroundColor', 'rgba(0,0,0,0.2)');
+        },
+        function (event) {
+            $('.dropdown-menu').css('display', 'none');
+            $(this).css('backgroundColor', 'rgba(0,0,0,0)');
+            $('.dropdown-menu').css('backgroundColor', 'rgba(0,0,0,0)');
+        }
+    );
+    $('#addTagButton').click(function () {
+        if (tagsAdded < 6)
+            $('.addTagModal').show();
+        else
+            $('.warningAddTag').show();
+    });
+    $('.cancelAddTag').click(function () {
+        $('.addTagModal').hide();
+    });
+    $('.cancelWarningAddTag').click(function () {
+        $('.warningAddTag').hide();
+    });
+    $('.addTagModalButton').click(function () {
+        var divTag = document.createElement('div');
+        divTag.textContent = $('#tagInput').val();
+        divTag.value = divTag.textContent;
+        divTag.name = "Tag";
+        divTag.id = "tagShowcase";
+        var n = getRandomInt(0, 3);
+        switch (n) {
+            case 0:
+                divTag.style = "width:30%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+            case 1:
+                divTag.style = "width:30%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+            case 2:
+                divTag.style = "width:30%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+            case 3:
+                divTag.style = "width:30%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;";
+                break;
+        }
+        $('#tagContainer').append(divTag);
+
+        var divTagHidden = document.createElement('input');
+        divTagHidden.value = divTag.textContent;
+        divTagHidden.name = "Tag";
+        $('#tagContainerHidden').append(divTagHidden);
+        $('.addTagModal').hide();
+        tagsAdded++;
+    });
+    $('#PictureDescriptionInput').change(function () {
+        $('#PictureDescriptionText').text($('#PictureDescriptionInput').val());
+    });
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+</script>

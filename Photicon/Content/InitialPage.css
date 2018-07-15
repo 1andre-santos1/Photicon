@@ -238,8 +238,8 @@ span .nav-masthead {
 #popup_picture > img {
     position: absolute;
     z-index: 100;
-    top: 20%;
-    left: 15%;
+    top: 10%;
+    left: 5%;
     width: 40%;
     height: 60%;
 }
@@ -264,8 +264,9 @@ span .nav-masthead {
 #popup_picture > .close {
     position: absolute;
     z-index: 100;
-    top: 2%;
-    left: 95%;
+    top: 0;
+    left: 80%;
+    right:0;
 }
 
 .upload_tag {

@@ -74,9 +74,9 @@
                         }
                         string bGrid = "col-lg-" + ImageSizes[0] + " col-md-" + ImageSizes[1] + " col-sm-" + ImageSizes[2] + " col-xs-" + ImageSizes[3];
                         <div class=@bGrid style="padding:0; display:inline-block;margin:0px 10px 10px 0px;">
-                            <a href="@Url.Action("ViewPicture", "Home",new {PictureId = picture.Id })">
 
-                                <div class="picContainer" style="display:inline-block;position:relative; width:100%;">
+                            <a href="@Url.Action("ViewPicture","Home",new { PictureId = picture.Id})">
+                                <div class="picContainer" style="display:inline-block;position:relative; width:100%;cursor:pointer;">
                                     <div class="picBanner" style="position:absolute; background-color:rgba(0,0,0,0.5); color:white; right:0;bottom:0;height:100%;width:100%; padding:20px; display:none;">
                                         @if (picture.Visibility == false)
                                         {
@@ -127,26 +127,21 @@
 
                                 </div>
                             </a>
-
                         </div>
                         i++;
                         if (i > 6)
                         {
                             i = 0;
                         }
+
                     }
                     if (@Model.PicturesList.Count <= 0)
                     {
                         <h1 style="margin: auto;">No Pictures Yet!!!</h1>
                     }
                 }
+
             </div>
-        </div>
-        <div id="popup_picture" style="display: none;">
-            <img src="" width="350" height="200" style="object-fit:cover;" id="pop_pictureImage">
-            <button type="button" class="close" aria-label="Close">
-                <img width="50px" height="50px" style="opacity:1" src="~/Images/btn_exit.png" />
-            </button>
         </div>
     </div>
 </div>
@@ -171,20 +166,5 @@
             $(this).siblings('.popup').css('display', 'none');
         }
     );
-    var isOnPicture = false;
-    $(".picture").click(function () {
-        if (isOnPicture)
-            return;
-
-        isOnPicture = true;
-        $('#pop_pictureImage').attr("src", $(this).attr('src'));
-        $("#popup_picture").show("fast");
-        $("#gallery").fadeTo("slow", 0.2);
-    });
-    $(".close").click(function () {
-        isOnPicture = false;
-        $("#popup_picture").hide("fast");
-        $("#gallery").fadeTo("slow", 1);
-    });
 </script>
 

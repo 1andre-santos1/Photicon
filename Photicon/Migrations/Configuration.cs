@@ -136,7 +136,7 @@ namespace Photicon.Migrations
 
                 Tags tag2 = new Tags();
                 tag2.Id = 2;
-                tag2.Name = "Sneakers";
+                tag2.Name = "Casual";
                 tag2.PicturesList.Add(picToInsert);
                 context.Tags.AddOrUpdate(tag2);
                 picToInsert.TagsList.Add(tag2);
@@ -168,7 +168,7 @@ namespace Photicon.Migrations
 
                 Tags tag1 = new Tags();
                 tag1.Id = 3;
-                tag1.Name = "Adventure";
+                tag1.Name = "Height";
                 tag1.PicturesList.Add(picToInsert);
                 context.Tags.AddOrUpdate(tag1);
                 picToInsert.TagsList.Add(tag1);

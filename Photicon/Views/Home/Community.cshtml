@@ -74,93 +74,94 @@
                         }
                         string bGrid = "col-lg-" + ImageSizes[0] + " col-md-" + ImageSizes[1] + " col-sm-" + ImageSizes[2] + " col-xs-" + ImageSizes[3];
                         <div class=@bGrid style="padding:0; display:inline-block;margin:0px 10px 10px 0px;">
-                            <div class="picContainer" style="display:inline-block;position:relative; width:100%;">
-                                <div class="picBanner" style="position:absolute; background-color:rgba(0,0,0,0.5); color:white; right:0;bottom:0;height:100%;width:100%; padding:20px;display:none;">
-                                    <span style="font-size:x-large;">@picture.Description</span>
-                                    <br />
-                                    @if (picture.User != Model.User)
-                                    {
-                                        <a href="@Url.Action("LikePicture","Home",new { UserId = Model.User.Id,PictureId = picture.Id })" class="popoverLikes">
-                                            <span style="float:left;">
-                                                <img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />
-                                            </span>
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <span style="float:left;" class="popoverLikes">
-                                            <img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />
-                                        </span>
-
-                                    }
-
-                                    <span style="float:left;">
-                                        @picture.Likes
-                                    </span>
-
-                                    <span style="float:right;">@picture.UploadDate.Day/@picture.UploadDate.Month/@picture.UploadDate.Year</span>
-                                    @if (picture.User == Model.User)
-                                    {
-                                        <span><img src="~/Images/user.png" style="width:30px; height:30px;margin-top:5px;" /></span>
-                                    }
-                                    else
-                                    {
-                                        if (picture.User.ProfilePhoto == null || String.IsNullOrWhiteSpace(picture.User.ProfilePhoto))
+                            <a href="@Url.Action("ViewPicture","Home",new { PictureId = picture.Id})">
+                                <div class="picContainer" style="display:inline-block;position:relative; width:100%;cursor:pointer;">
+                                    <div class="picBanner" style="position:absolute; background-color:rgba(0,0,0,0.5); color:white; right:0;bottom:0;height:100%;width:100%; padding:20px;display:none;">
+                                        <span style="font-size:x-large;">@picture.Description</span>
+                                        <br />
+                                        @if (picture.User != Model.User)
                                         {
-                                            <a href='@Url.Action("ViewOtherUserProfile", "Home",new{UserId=Model.User.Id,ViewedUserId=picture.User.Id})'>
-                                                <span><img src="~/Images/male.png" style="width:40px; height:40px;margin-top:5px;border-radius:35px; object-fit:cover;" /></span>
-                                                <span style="font-size:large;">@picture.User.UserName</span>
-
+                                            <a href="@Url.Action("LikePicture","Home",new { UserId = Model.User.Id,PictureId = picture.Id })" class="popoverLikes">
+                                                <span style="float:left;">
+                                                    <img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />
+                                                </span>
                                             </a>
                                         }
-
                                         else
                                         {
-                                            <a href='@Url.Action("ViewOtherUserProfile", "Home",new{UserId=Model.User.Id,ViewedUserId=picture.User.Id})'>
-                                                <span><img src="@picture.User.ProfilePhoto" style="width:40px; height:40px;margin-top:5px;border-radius:35px; object-fit:cover;" /></span>
-                                                <span style="font-size:large;">@picture.User.UserName</span>
+                                            <span style="float:left;" class="popoverLikes">
+                                                <img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />
+                                            </span>
 
-                                            </a>
                                         }
-                                    }
-                                    <br />
-                                    <div style="float:left; background-color:rgba(0,0,0,0.6); display:none;" class="popup">
-                                        @{
 
-                                            foreach (var user in picture.UsersThatLiked)
+                                        <span style="float:left;">
+                                            @picture.Likes
+                                        </span>
+
+                                        <span style="float:right;">@picture.UploadDate.Day/@picture.UploadDate.Month/@picture.UploadDate.Year</span>
+                                        @if (picture.User == Model.User)
+                                        {
+                                            <span><img src="~/Images/user.png" style="width:30px; height:30px;margin-top:5px;" /></span>
+                                        }
+                                        else
+                                        {
+                                            if (picture.User.ProfilePhoto == null || String.IsNullOrWhiteSpace(picture.User.ProfilePhoto))
                                             {
-                                                <p>@user.UserName</p>
+                                                <a href='@Url.Action("ViewOtherUserProfile", "Home",new{UserId=Model.User.Id,ViewedUserId=picture.User.Id})'>
+                                                    <span><img src="~/Images/male.png" style="width:40px; height:40px;margin-top:5px;border-radius:35px; object-fit:cover;" /></span>
+                                                    <span style="font-size:large;">@picture.User.UserName</span>
+
+                                                </a>
+                                            }
+
+                                            else
+                                            {
+                                                <a href='@Url.Action("ViewOtherUserProfile", "Home",new{UserId=Model.User.Id,ViewedUserId=picture.User.Id})'>
+                                                    <span><img src="@picture.User.ProfilePhoto" style="width:40px; height:40px;margin-top:5px;border-radius:35px; object-fit:cover;" /></span>
+                                                    <span style="font-size:large;">@picture.User.UserName</span>
+
+                                                </a>
                                             }
                                         }
-                                    </div>
-                                    <div style="margin:auto;width:50%;">
-                                        @{
-                                            Random r = new Random();
-                                            foreach (var tag in picture.TagsList)
-                                            {
-                                                int n = r.Next(0, 4);
-                                                switch (n)
+                                        <br />
+                                        <div style="float:left; background-color:rgba(0,0,0,0.6); display:none;" class="popup">
+                                            @{
+
+                                                foreach (var user in picture.UsersThatLiked)
                                                 {
-                                                    case 0:
-                                                        <div id="tagShowcase" style="width:40%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                        break;
-                                                    case 1:
-                                                        <div id="tagShowcase" style="width:40%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                        break;
-                                                    case 2:
-                                                        <div id="tagShowcase" style="width:40%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                        break;
-                                                    case 3:
-                                                        <div id="tagShowcase" style="width:40%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                        break;
+                                                    <p>@user.UserName</p>
                                                 }
                                             }
-                                        }
+                                        </div>
+                                        <div style="margin:auto;width:50%;">
+                                            @{
+                                                Random r = new Random();
+                                                foreach (var tag in picture.TagsList)
+                                                {
+                                                    int n = r.Next(0, 4);
+                                                    switch (n)
+                                                    {
+                                                        case 0:
+                                                            <div id="tagShowcase" style="width:40%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                            break;
+                                                        case 1:
+                                                            <div id="tagShowcase" style="width:40%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                            break;
+                                                        case 2:
+                                                            <div id="tagShowcase" style="width:40%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                            break;
+                                                        case 3:
+                                                            <div id="tagShowcase" style="width:40%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                        </div>
                                     </div>
+                                    <img class="picture" src="@picture.Path" style="margin-bottom: 0; width:100%;height:350px;object-fit:cover;">
                                 </div>
-                                <img class="picture" src="@picture.Path" style="margin-bottom: 0; width:100%;height:350px;object-fit:cover;">
-
-                            </div>
+                            </a>
                         </div>
                         i++;
                         if (i > 6)
@@ -174,12 +175,7 @@
 
         </div>
     </div>
-    <div id="popup_picture" style="display: none;">
-        <img src="" width="350" height="200" style="object-fit:cover;" id="pop_pictureImage">
-        <button type="button" class="close" aria-label="Close">
-            <img width="50px" height="50px" style="opacity:1" src="~/Images/btn_exit.png" />
-        </button>
-    </div>
+
 </div>
 <script>
     $(".dropdown").hover(
@@ -202,20 +198,4 @@
             $(this).siblings('.popup').css('display', 'none');
         }
     );
-
-    var isOnPicture = false;
-    $(".picture").click(function () {
-        if (isOnPicture)
-            return;
-
-        isOnPicture = true;
-        $('#pop_pictureImage').attr("src", $(this).attr('src'));
-        $("#popup_picture").show("fast");
-        $("#gallery").fadeTo("slow", 0.2);
-    });
-    $(".close").click(function () {
-        isOnPicture = false;
-        $("#popup_picture").hide("fast");
-        $("#gallery").fadeTo("slow", 1);
-    });
 </script>
