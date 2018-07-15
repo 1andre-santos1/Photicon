@@ -94,6 +94,14 @@ namespace Photicon.Migrations
                 }
                 user.PicturesList.Add(picToInsert);
                 picToInsert.User = user;
+
+                Tags tag = new Tags();
+                tag.Id = 0;
+                tag.Name = "Dog";
+                tag.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag);
+                picToInsert.TagsList.Add(tag);
+
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
@@ -118,6 +126,21 @@ namespace Photicon.Migrations
                 }
                 user.PicturesList.Add(picToInsert);
                 picToInsert.User = user;
+
+                Tags tag1= new Tags();
+                tag1.Id = 1;
+                tag1.Name = "Feet";
+                tag1.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag1);
+                picToInsert.TagsList.Add(tag1);
+
+                Tags tag2 = new Tags();
+                tag2.Id = 2;
+                tag2.Name = "Sneakers";
+                tag2.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag2);
+                picToInsert.TagsList.Add(tag2);
+
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
@@ -142,6 +165,28 @@ namespace Photicon.Migrations
                 }
                 user.PicturesList.Add(picToInsert);
                 picToInsert.User = user;
+
+                Tags tag1 = new Tags();
+                tag1.Id = 3;
+                tag1.Name = "Adventure";
+                tag1.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag1);
+                picToInsert.TagsList.Add(tag1);
+
+                Tags tag2 = new Tags();
+                tag2.Id = 4;
+                tag2.Name = "Danger";
+                tag2.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag2);
+                picToInsert.TagsList.Add(tag2);
+
+                Tags tag3 = new Tags();
+                tag3.Id = 5;
+                tag3.Name = "Abyss";
+                tag3.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag3);
+                picToInsert.TagsList.Add(tag3);
+
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
@@ -166,6 +211,21 @@ namespace Photicon.Migrations
                 }
                 user.PicturesList.Add(picToInsert);
                 picToInsert.User = user;
+
+                Tags tag = new Tags();
+                tag.Id = 6;
+                tag.Name = "Wait";
+                tag.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag);
+                picToInsert.TagsList.Add(tag);
+
+                Tags tag2 = new Tags();
+                tag2.Id = 7;
+                tag2.Name = "Snow";
+                tag2.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag2);
+                picToInsert.TagsList.Add(tag2);
+
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
@@ -190,6 +250,14 @@ namespace Photicon.Migrations
                 }
                 user.PicturesList.Add(picToInsert);
                 picToInsert.User = user;
+
+                Tags tag = new Tags();
+                tag.Id = 8;
+                tag.Name = "Walk";
+                tag.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag);
+                picToInsert.TagsList.Add(tag);
+
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
@@ -214,6 +282,14 @@ namespace Photicon.Migrations
                 }
                 user.PicturesList.Add(picToInsert);
                 picToInsert.User = user;
+
+                Tags tag = new Tags();
+                tag.Id = 9;
+                tag.Name = "Work";
+                tag.PicturesList.Add(picToInsert);
+                context.Tags.AddOrUpdate(tag);
+                picToInsert.TagsList.Add(tag);
+
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
