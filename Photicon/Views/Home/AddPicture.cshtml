@@ -1,4 +1,9 @@
-﻿<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+﻿<style>
+    .tagShowcase{
+        cursor:pointer;
+    }
+</style>
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <div id="gallery">
         <header class="masthead mb-auto" style="margin-bottom: 0px !important;">
             <div class="inner">
@@ -51,6 +56,7 @@
                 <div class="picContainer" style="display:inline-block;position:relative; width:100%; margin-bottom:10px;float:left;">
                     <div style="position:absolute; background-color:rgba(0,0,0,0.65); color:white;bottom:0;height:70px;width:100%; padding:20px 20px 0px 20px; display:block;">
                         <span style="font-size:large; float:right;">@DateTime.Now.Day/@DateTime.Now.Month/@DateTime.Now.Year</span>
+                        <img src="~/Images/community.png" width="25" height="25" style="float:left;" id="visibilityPicture" />
                         <div id="tagContainer" style="margin:auto;width:50%;">
                         </div>
                     </div>
@@ -65,11 +71,11 @@
                     <p align="left">
                         <input type="file" name="file" id="imageFile" onchange="readfile(this);" style="margin-bottom: 10px; margin-right: 15px;" accept="image/*" />
                         <br />
-                        <label>Private </label>@Html.CheckBox("Visibility")
-                        <label>Set as Profile Picture </label>@Html.CheckBox("IsProfilePicture")
+                        <label style="font-size:x-large; margin-right:10px;">Private </label>@Html.CheckBox("Visibility", new { id = "visibilityCheckbox" })
+                        <br />
+                        <label style="font-size:x-large;margin-right:10px;">Set as Profile Picture </label>@Html.CheckBox("IsProfilePicture")
                         <div id="tagContainerHidden" style="text-align:left;display:none;"></div>
                     </p>
-
                     <p align="left">
                         <button id="addTagButton" type="button" class="btn btn-default">Add Tag</button>
                     </p>
@@ -91,7 +97,7 @@
                                 <p style="font-size:x-large">Add Tag</p>
                             </div>
                             <div class="modal-body" style="margin-top:10px;">
-                                <span>Name </span><input id="tagInput" type="text" name="tagInput" value="" placeholder="Tag Name" maxlength="6"/>
+                                <span>Name </span><input id="tagInput" type="text" name="tagInput" value="" placeholder="Tag Name" maxlength="6" />
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success addTagModalButton">Add Tag</button>
@@ -112,6 +118,24 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default cancelWarningAddTag">Return</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal infoTag" tabindex="-1" role="dialog" style="display:none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                        <div class="modal-body" style="margin-top:10px;">
+                            <span style="font-size:xx-large;">Tag</span>
+                            <br />
+                            <br />
+                            <div id="tagContainerModal">
+                            </div>
+                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger removeInfoTag">Remove Tag</button>
+                            <button type="button" class="btn btn-default cancelInfoTag">Return</button>
                         </div>
                     </div>
                 </div>
@@ -145,12 +169,37 @@
     $('.cancelWarningAddTag').click(function () {
         $('.warningAddTag').hide();
     });
+
+    $('.removeInfoTag').click(function () {
+        //remove a tag mostrada do tag container
+        $('#tagContainer').children('.tagShowcase').each(function () {
+            if ($(this).text() === $('#tagContainerModal .tagShowcase').text())
+                $(this).remove();
+        });
+        //remove a tag mostrada do tag container hidden
+        $('#tagContainerHidden').children('.tagShowcase').each(function () {
+            if ($(this).val() === $('#tagContainerModal .tagShowcase').text())
+                $(this).remove();
+        });
+        $('.infoTag').hide();
+    });
+    $('.cancelInfoTag').click(function () {
+        //esconde modal
+        $('.infoTag').hide();
+    });
     $('.addTagModalButton').click(function () {
         var divTag = document.createElement('div');
         divTag.textContent = $('#tagInput').val();
         divTag.value = divTag.textContent;
         divTag.name = "Tag";
-        divTag.id = "tagShowcase";
+        $(divTag).addClass('tagShowcase');
+        divTag.addEventListener('click', function () {
+            //mostrar modal com a tag
+            $('.infoTag').show();
+            $('#tagContainerModal').empty();
+            var div = divTag.cloneNode(true);
+            $('#tagContainerModal').append(div);
+        });
         var n = getRandomInt(0, 3);
         switch (n) {
             case 0:
@@ -171,12 +220,19 @@
         var divTagHidden = document.createElement('input');
         divTagHidden.value = divTag.textContent;
         divTagHidden.name = "Tag";
+        $(divTagHidden).addClass('tagShowcase');
         $('#tagContainerHidden').append(divTagHidden);
         $('.addTagModal').hide();
         tagsAdded++;
     });
-    $('#PictureDescriptionInput').change(function () {
+    $('#PictureDescriptionInput').keyup(function () {
         $('#PictureDescriptionText').text($('#PictureDescriptionInput').val());
+    });
+    $('#visibilityCheckbox').click(function () {
+        if (this.checked)
+            $('#visibilityPicture').attr('src', '/Images/lock.png');
+        else
+            $('#visibilityPicture').attr('src', '/Images/community.png');
     });
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
