@@ -16,6 +16,7 @@ function usersStage() {
         });
 }
 function mostraUsers(users) {
+    showLoader();
     for (var i = 0; i < users.length; i++) {
 
         var userDiv = document.createElement('div');
@@ -99,4 +100,12 @@ function mostraUsers(users) {
 
         interf.usersContainer.append(userDiv);
     }
+    $('#usersContainer').fadeIn("slow");
+    setTimeout(hideLoader, 1000);
+}
+function showLoader(){
+    $('#loader').show();
+}
+function hideLoader(){
+    $('#loader').hide();
 }

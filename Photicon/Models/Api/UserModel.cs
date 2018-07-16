@@ -13,14 +13,10 @@ namespace Photicon.Models.Api
             Id = user.Id;
             UserName = user.UserName;
             ProfilePhoto = user.ProfilePhoto;
-            Password = "Ba1234!";
         }
 
         public string Id { get; set; }
         public string UserName { get; set; }
         public string ProfilePhoto { get; set; }
-        public string Password { get; set; }
-
-
     }
 }

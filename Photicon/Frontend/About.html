@@ -34,6 +34,26 @@
         height: 350px;
         object-fit: cover;
     }
+    #usersContainer {
+        display: none;
+        margin-top: 20px;
+    }
+    #loader {
+        width: 50px;
+        height: 50px;
+        animation: scale 2s linear infinite;
+        margin:20px auto;
+    }
+
+    @keyframes scale {
+        0% {
+            transform: scale(0.5);
+        }
+
+        100% {
+            transform: scale(2);
+        }
+    }
 </style>
 <!DOCTYPE html>
 <html>
@@ -62,7 +82,8 @@
         <h1>Logins</h1>
         <hr style="border:1px solid #E54657; margin-top: 2px;width:80%;">
         <h3>Login Information</h3>
-        <div id="usersContainer" style="margin-top:20px;">
+        <img id="loader" src="../Images/camera.png" />
+        <div id="usersContainer">
         </div>
     </div>
 </body>
