@@ -1,10 +1,54 @@
 ﻿<style>
+    .infoLabel {
+        font-size: xx-large;
+        background-color: #222;
+    } 
+    .containerLeft {
+        float: left;
+    }
+    .infoContainer {
+        margin-bottom: 0px;
+    }
+    .miniPictures {
+        object-fit: cover;
+    }
+    .picsCommunityLabel {
+        font-size: x-large;
+    }
     .picContainer {
         display: inline-block;
         position: relative;
         width: 100%;
         cursor: pointer;
-    } 
+    }
+    .userNameText {
+        font-size: xx-large;
+    }
+    .profilePictureContainer {
+        margin-bottom: 0px;
+    }
+    .profilePictureInfo {
+        width: 400px;
+        height: 350px;
+        object-fit: cover;
+    }
+    .picBannerInfo {
+        position: absolute;
+        background-color: rgba(0,0,0,0.65);
+        color: white;
+        bottom: 0;
+        height: 70px;
+        width: 400px;
+        padding: 20px 20px 0px 20px;
+        display: block;
+    }
+    .picContainerUser {
+        display: inline-block;
+        position: relative;
+        width: 50%;
+        margin-bottom: 10px;
+        float: left;
+    }
     .userContainerGrid {
         padding: 0;
         display: inline-block;
@@ -34,24 +78,24 @@
         height: 350px;
         object-fit: cover;
     }
-    #usersContainer {
+    #usersContainer,#userContainer {
         display: none;
         margin-top: 20px;
     }
     #loader {
         width: 50px;
         height: 50px;
-        animation: scale 2s linear infinite;
+        animation: spin 2s linear infinite;
         margin:20px auto;
     }
 
-    @keyframes scale {
+    @keyframes spin {
         0% {
-            transform: scale(0.5);
+            transform: rotate(0deg);
         }
 
         100% {
-            transform: scale(2);
+            transform: rotate(360deg);
         }
     }
 </style>
@@ -76,14 +120,16 @@
 <body class="text-center" style="height: 100%; overflow-x: hidden;">
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
         <div style="text-align:center;">
-            <img src="../Images/camera.png" style="width:80px" />
+            <img src="../Images/camera.png" style="width:80px" id="mainButton"/>
         </div>
         <br />
-        <h1>Logins</h1>
+        <h1 id="mainTitle">Logins</h1>
         <hr style="border:1px solid #E54657; margin-top: 2px;width:80%;">
-        <h3>Login Information</h3>
+        <h3 id="subTitle">Login Information</h3>
         <img id="loader" src="../Images/camera.png" />
         <div id="usersContainer">
+        </div>
+        <div id="userContainer">
         </div>
     </div>
 </body>

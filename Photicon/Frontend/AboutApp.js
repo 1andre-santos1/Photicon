@@ -5,17 +5,40 @@
 var interf = {};
 function adqInterf() {
     interf.usersContainer = document.querySelector('#usersContainer');
+    interf.userContainer = document.querySelector('#userContainer');
+    interf.mainButton = document.querySelector('#mainButton');
+    interf.mainButton.addEventListener('click', function () {
+        $(interf.usersContainer).hide();
+        $(interf.usersContainer).empty();
+        $(interf.userContainer).hide();
+        $(interf.userContainer).empty();
+        setTimeout(function (e) {
+            usersStage();
+        }, 500);
+    });
 }
 function usersStage() {
     return getUsers()
         .then(function (users) {
-            mostraUsers(users);
+            showUsers(users);
         })
         .catch(function (erro) {
             console.error(erro);
         });
 }
-function mostraUsers(users) {
+function userStage(id) {
+    debugger;
+    return getUser(id)
+        .then(function (user) {
+            showUser(user);
+        })
+        .catch(function (erro) {
+            console.error(erro);
+        });
+}
+function showUsers(users) {
+    $('#mainTitle').text("Logins");
+    $('#subTitle').text("Login Information");
     showLoader();
     for (var i = 0; i < users.length; i++) {
 
@@ -25,6 +48,14 @@ function mostraUsers(users) {
         var picContainer = document.createElement('div');
         $(picContainer).addClass('picContainer');
         $(userDiv).append(picContainer);
+        let id = users[i].Id;
+        picContainer.addEventListener('click', function () {
+            $(interf.usersContainer).hide();
+            $(interf.usersContainer).empty();
+            setTimeout(function (e) {
+                userStage(id);
+            }, 500);
+        });
 
         var picBanner = document.createElement('div');
         $(picBanner).addClass('picBanner');
@@ -103,9 +134,94 @@ function mostraUsers(users) {
     $('#usersContainer').fadeIn("slow");
     setTimeout(hideLoader, 1000);
 }
+function showUser(user) {
+    $('#mainTitle').text("Logins");
+    $('#subTitle').text("User Information");
+    showLoader();
+
+    var userDiv = document.createElement('div');
+    $(userDiv).addClass('containerLeft');
+
+    var picContainer = document.createElement('div');
+    $(picContainer).addClass('picContainerUser');
+    $(userDiv).append(picContainer);
+
+    var picBanner = document.createElement('div');
+    $(picBanner).addClass('picBannerInfo');
+    $(picContainer).append(picBanner);
+
+    var userNameText = document.createElement('span');
+    $(userNameText).addClass('userNameText');
+    userNameText.textContent = user.UserName;
+    $(picBanner).append(userNameText);
+
+    var pleft = document.createElement('p');
+    pleft.align = "left";
+    $(pleft).addClass('profilePictureContainer');
+    $(picContainer).append(pleft);
+
+    var img = document.createElement('img');
+    img.src = user.ProfilePhoto;
+    $(img).addClass('profilePictureInfo');
+    $(img).attr('id',"imageShowcase");
+    $(pleft).append(img);
+
+    interf.userContainer.append(userDiv);
+
+
+    var infoLabel = document.createElement('p');
+    $(infoLabel).addClass('infoLabel');
+    $(infoLabel).text("Information");
+    interf.userContainer.append(infoLabel);
+
+    var infoContainer = document.createElement('p');
+    $(infoContainer).addClass('infoContainer');
+    interf.userContainer.append(infoContainer);
+
+    var picsCommunityLabel = document.createElement('span');
+    $(picsCommunityLabel).addClass('picsCommunityLabel');
+    $(picsCommunityLabel).text("Pictures Shared With The Community");
+    $(infoContainer).append(picsCommunityLabel);
+
+    var break2 = document.createElement('br');
+    $(infoContainer).append(break2);
+    var break3 = document.createElement('br');
+    $(infoContainer).append(break3);
+    var publicPicsLabel = document.createElement('span');
+    $(publicPicsLabel).addClass('picsCommunityLabel');
+    publicPicsLabel.textContent = ""+user.Pictures;
+    $(infoContainer).append(publicPicsLabel);
+
+    var break4 = document.createElement('br');
+    $(infoContainer).append(break4);
+    var break5 = document.createElement('br');
+    $(infoContainer).append(break5);
+
+    var picsCommunityLabel = document.createElement('span');
+    $(picsCommunityLabel).addClass('picsCommunityLabel');
+    $(picsCommunityLabel).text("Likes Given");
+    $(infoContainer).append(picsCommunityLabel);
+
+    var break7 = document.createElement('br');
+    $(infoContainer).append(break7);
+    var break8 = document.createElement('br');
+    $(infoContainer).append(break8);
+
+    var likesLabel = document.createElement('span');
+    likesLabel.textContent = "" + user.Likes;
+    $(likesLabel).addClass('picsCommunityLabel');
+    $(infoContainer).append(likesLabel);
+
+    var break6 = document.createElement('br');
+    $(infoContainer).append(break6);
+
+    $('#userContainer').fadeIn("slow");
+    setTimeout(hideLoader, 500);
+}
 function showLoader(){
     $('#loader').show();
 }
 function hideLoader(){
     $('#loader').hide();
 }
+

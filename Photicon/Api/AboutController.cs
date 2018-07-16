@@ -20,5 +20,18 @@ namespace Photicon.Api
         {
             return db.Users.ToList().Select(u => new UserModel(u));
         }
+
+        // GET: api/About/5
+        public UserModel Get(string id)
+        {
+            var user = db.Users.Where(m => m.Id == id).Select(m => m).SingleOrDefault();
+
+            if (user != null)
+            {
+                return new UserModel(user);
+            }
+
+            return null;
+        }
     }
 }

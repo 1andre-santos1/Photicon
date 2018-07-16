@@ -13,10 +13,14 @@ namespace Photicon.Models.Api
             Id = user.Id;
             UserName = user.UserName;
             ProfilePhoto = user.ProfilePhoto;
+            Pictures = user.PicturesList.Count;
+            Likes = user.LikedPictures.Count;
         }
 
         public string Id { get; set; }
         public string UserName { get; set; }
         public string ProfilePhoto { get; set; }
+        public int Pictures;
+        public int Likes { get; set; }
     }
 }
