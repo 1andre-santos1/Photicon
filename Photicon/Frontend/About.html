@@ -1,4 +1,41 @@
-﻿<!DOCTYPE html>
+﻿<style>
+    .picContainer {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        cursor: pointer;
+    } 
+    .userContainerGrid {
+        padding: 0;
+        display: inline-block;
+        margin: 0px 10px 10px 0px;
+    }
+    .picBanner {
+        position: absolute;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        right: 0;
+        bottom: 0;
+        height: 30%;
+        width: 100%;
+        padding: 20px;
+        display: block;
+        overflow-y: scroll;
+    }
+    .LoginTextLabel,.PasswordTextLabel {
+        font-size: large;
+    }
+    .LoginTextData,.PasswordTextData{
+        font-size: xx-large;
+    }
+    .picture {
+        margin-bottom: 0;
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+    }
+</style>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,7 +53,17 @@
     <script src="AboutData.js"></script>
     <link href="AboutStyle.css" rel="stylesheet" />
 </head>
-<body>
-    <div id="usersContainer"></div>
+<body class="text-center" style="height: 100%; overflow-x: hidden;">
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <div style="text-align:center;">
+            <img src="../Images/camera.png" style="width:80px" />
+        </div>
+        <br />
+        <h1>Logins</h1>
+        <hr style="border:1px solid #E54657; margin-top: 2px;width:80%;">
+        <h3>Login Information</h3>
+        <div id="usersContainer" style="margin-top:20px;">
+        </div>
+    </div>
 </body>
 </html>
