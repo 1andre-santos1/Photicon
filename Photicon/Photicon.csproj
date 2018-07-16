@@ -203,6 +203,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CommunityPicturesViewModels.cs" />
     <Compile Include="Models\PhoticonDB.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Pictures.cs" />
