@@ -222,7 +222,7 @@ namespace Photicon.Controllers
         }
 
         [HttpPost]
-        public ActionResult ViewPicture(int PictureId,string UserId, ICollection<string> Tag,bool Visibility,bool IsProfilePicture, string PictureDescription)
+        public ActionResult ViewPicture(int PictureId, string UserId, ICollection<string> Tag, bool Visibility, bool IsProfilePicture, string PictureDescription)
         {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Index");
@@ -236,10 +236,10 @@ namespace Photicon.Controllers
             {
                 user.ProfilePhoto = pic.Path;
             }
-            for(int tagIndex = 0; tagIndex < pic.TagsList.Count; tagIndex++)
+            for (int tagIndex = 0; tagIndex < pic.TagsList.Count; tagIndex++)
             {
                 Tags tag = pic.TagsList.ElementAt(tagIndex);
-                if(Tag == null)
+                if (Tag == null)
                 {
                     tag.PicturesList.Remove(pic);
                     pic.TagsList.Remove(tag);
@@ -313,6 +313,18 @@ namespace Photicon.Controllers
             Users viewedUser = db.Users.Where(m => m.Id == ViewedUserId).Select(m => m).SingleOrDefault();
 
             var model = new CommunityProfilesViewModels { User = user, ViewedUser = viewedUser };
+            return View(model);
+        }
+
+        public ActionResult ViewOtherUserPicture(string UserId, int ViewedPictureId)
+        {
+            if (!User.Identity.IsAuthenticated || UserId == null)
+                return RedirectToAction("Index");
+
+            Users user = db.Users.Where(m => m.Id == UserId).Select(m => m).SingleOrDefault();
+            Pictures viewedPicture = db.Pictures.Where(m => m.Id == ViewedPictureId).Select(m => m).SingleOrDefault();
+
+            var model = new CommunityPicturesViewModels { User = user, ViewedPicture = viewedPicture };
             return View(model);
         }
 

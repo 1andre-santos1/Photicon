@@ -2,7 +2,7 @@
     <div id="gallery">
         <header class="masthead mb-auto" style="margin-bottom: 0px !important;">
             <div class="inner">
-                <nav class="navbar justify-content-between">
+                <nav class="navbar justify-content-between ">
                     <a href='@Url.Action("MainPage", "Home",new{Id=@Model.User.Id})'>
                         <span class="masthead-brand" style="font-size: 30px;"><img src="/Images/camera.png" style="width: 40px; height: 40px; margin-right:15px;" />Gallery</span>
                     </a>
@@ -28,7 +28,7 @@
                         <ul class="dropdown-menu" role="menu" aria-labelledby="userMenu" style="background-color:#333;padding:20px;">
                             <li role="presentation" style="margin-bottom:10px">
                                 <a href='@Url.Action("EditProfile", "Home",new{Id=@Model.User.Id})' class="btn btn-danger" style="width:100%;">
-                                    Profile
+                                    Edit Profile
                                 </a>
                             </li>
                             <hr style="border:1px solid #E54657; margin-top: 2px;">
@@ -46,10 +46,51 @@
             </div>
         </header>
         <div class="container text-center">
-            <div id="pictures">
-                @Html.Partial("_PictureGalleryPartialView")
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding:0">
+                <span id="PictureDescriptionText" style="font-size:xx-large;float:left;margin-bottom:10px;">@Model.ViewedPicture.Description</span>
+                <div class="picContainer" style="display:inline-block;position:relative; width:100%; margin-bottom:10px;float:left;">
+                    <div style="position:absolute; background-color:rgba(0,0,0,0.65); color:white;bottom:0;height:70px;width:100%; padding:20px 20px 0px 20px; display:block;">
+                        <span style="float:left;"><img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />@Model.ViewedPicture.Likes</span>
+                        <span style="font-size:large; float:right;">@Model.ViewedPicture.UploadDate.Day/@Model.ViewedPicture.UploadDate.Month/@Model.ViewedPicture.UploadDate.Year</span>
+                        <div id="tagContainer" style="margin:auto;width:50%;">
+                            @{
+                                Random r = new Random();
+                                foreach (var tag in Model.ViewedPicture.TagsList)
+                                {
+                                    int n = r.Next(0, 4);
+                                    switch (n)
+                                    {
+                                        case 0:
+                                            <div class="tagShowcase" style="width:30%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                        case 1:
+                                            <div class="tagShowcase" style="width:30%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                        case 2:
+                                            <div class="tagShowcase" style="width:30%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                        case 3:
+                                            <div class="tagShowcase" style="width:30%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                            break;
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                    <p align="left" style="margin-bottom:0px;">
+                        <img src="@Model.ViewedPicture.Path" style="width: 100%; height: 350px; object-fit: cover;" id="imageShowcase">
+                    </p>
+                </div>
+                @using (Html.BeginForm("DownloadPicture", "Home", new { PicturePath = @Model.ViewedPicture.Path }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" class="btn btn-warning" value="Download" style="width:100%; margin-bottom:10px; font-size:large;" />
+                }
+                <br />
+                <br />
             </div>
         </div>
+
     </div>
 </div>
 <script>
@@ -63,14 +104,6 @@
             $('.dropdown-menu').css('display', 'none');
             $(this).css('backgroundColor', 'rgba(0,0,0,0)');
             $('.dropdown-menu').css('backgroundColor', 'rgba(0,0,0,0)');
-        }
-    );
-    $(".popoverLikes").hover(
-        function (event) {
-            $(this).siblings('.popup').css('display', 'block');
-        },
-        function (event) {
-            $(this).siblings('.popup').css('display', 'none');
         }
     );
 </script>
