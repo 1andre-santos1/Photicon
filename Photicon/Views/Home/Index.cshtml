@@ -5,42 +5,43 @@
 <header class="masthead mb-auto" style="margin-bottom:10px !important;">
     <div class="inner">
         <nav class="navbar justify-content-between">
-            <h3 class="masthead-brand">Photicon<img src="/Images/camera.png" /></h3>
-            <a href="~/Frontend/About.html">About -></a>
-            <section id="buttonForm">
+            <a href="~/Frontend/About.html">
+                <h3 class="masthead-brand">Photicon<img src="/Images/camera.png" /></h3>
+            </a>
+                <section id="buttonForm">
 
-                <table>
-                    <tr>
-                        <td>Username</td>
-                        <td>Password</td>
-                    </tr>
-                    <tr>
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <td>
-                                @Html.TextBoxFor(m => m.UserNameIdentity, new { @class = "form-control mr-sm-2" })
-                            </td>
+                    <table>
+                        <tr>
+                            <td>Username</td>
+                            <td>Password</td>
+                        </tr>
+                        <tr>
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <td>
+                                    @Html.TextBoxFor(m => m.UserNameIdentity, new { @class = "form-control mr-sm-2" })
+                                </td>
 
-                            <td>
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control mr-sm-2" })
-                            </td>
-                            <td><input type="submit" class="btn btn-danger" value="Login"></td>
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <td>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control mr-sm-2" })
+                                </td>
+                                <td><input type="submit" class="btn btn-danger" value="Login"></td>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        }
-                        <td>@Html.Partial("/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>@Html.ActionLink("Register as a new user", "Register", "Account")></td>
+                            }
+                            <td>@Html.Partial("/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>@Html.ActionLink("Register as a new user", "Register", "Account")></td>
 
-                    </tr>
-                </table>
+                        </tr>
+                    </table>
 
-            </section>
+                </section>
 
-        </nav>
+</nav>
     </div>
 </header>
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="7000" style="margin-bottom:0px">
@@ -124,7 +125,32 @@
             <h1 style="margin: auto;"></h1>
         }
     </div>
+    <div class="modalDeveloper" tabindex="-1" role="dialog" style="position:absolute;top:0;z-index:200;margin:auto;text-align:center;display:none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:rgba(50,50,50,0.95);border:3px solid #D43546;">
+                <div class="modal-header" style="margin-top:10px;font-size:x-large">
+                    <p style="text-align:center;">Project Info</p>
+                </div>
+                <div class="modal-body" style="margin-top:10px;">
+                    <p style="font-size:large;"><b>Aluno:</b> André Pedro dos Santos (20161)</p>
+                    <p style="font-size:large"><b>Curso:</b> Engenharia Informática | 2º Ano | Turma B | 2017-2018</p>
+                </div>
+                <div class="modal-footer">
+                    <p style="font-size:large">Click on the camera to access WEB API/Logins Page</p>
+                    <button type="button" class="btn btn-default" id="buttonDeveloper">Hide</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('.modalDeveloper').show();
+    });
+    $('#buttonDeveloper').click(function () {
+        $('.modalDeveloper').hide();
+    });
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

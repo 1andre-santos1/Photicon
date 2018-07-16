@@ -355,8 +355,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\About\" />
-    <Folder Include="Views\UserModel\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201807141834156_init.resx">

@@ -2,16 +2,16 @@
     adqInterf();
     usersStage();
 });
-var interf = {};
+var interface = {};
 function adqInterf() {
-    interf.usersContainer = document.querySelector('#usersContainer');
-    interf.userContainer = document.querySelector('#userContainer');
-    interf.mainButton = document.querySelector('#mainButton');
-    interf.mainButton.addEventListener('click', function () {
-        $(interf.usersContainer).hide();
-        $(interf.usersContainer).empty();
-        $(interf.userContainer).hide();
-        $(interf.userContainer).empty();
+    interface.usersContainer = document.querySelector('#usersContainer');
+    interface.userContainer = document.querySelector('#userContainer');
+    interface.mainButton = document.querySelector('#mainButton');
+    interface.mainButton.addEventListener('click', function () {
+        $(interface.usersContainer).hide();
+        $(interface.usersContainer).empty();
+        $(interface.userContainer).hide();
+        $(interface.userContainer).empty();
         setTimeout(function (e) {
             usersStage();
         }, 500);
@@ -27,7 +27,6 @@ function usersStage() {
         });
 }
 function userStage(id) {
-    debugger;
     return getUser(id)
         .then(function (user) {
             showUser(user);
@@ -50,8 +49,8 @@ function showUsers(users) {
         $(userDiv).append(picContainer);
         let id = users[i].Id;
         picContainer.addEventListener('click', function () {
-            $(interf.usersContainer).hide();
-            $(interf.usersContainer).empty();
+            $(interface.usersContainer).hide();
+            $(interface.usersContainer).empty();
             setTimeout(function (e) {
                 userStage(id);
             }, 500);
@@ -129,7 +128,7 @@ function showUsers(users) {
         $(img).attr('src', users[i].ProfilePhoto);
         $(picContainer).append(img);
 
-        interf.usersContainer.append(userDiv);
+        interface.usersContainer.append(userDiv);
     }
     $('#usersContainer').fadeIn("slow");
     setTimeout(hideLoader, 1000);
@@ -166,17 +165,17 @@ function showUser(user) {
     $(img).attr('id',"imageShowcase");
     $(pleft).append(img);
 
-    interf.userContainer.append(userDiv);
+    interface.userContainer.append(userDiv);
 
 
     var infoLabel = document.createElement('p');
     $(infoLabel).addClass('infoLabel');
     $(infoLabel).text("Information");
-    interf.userContainer.append(infoLabel);
+    interface.userContainer.append(infoLabel);
 
     var infoContainer = document.createElement('p');
     $(infoContainer).addClass('infoContainer');
-    interf.userContainer.append(infoContainer);
+    interface.userContainer.append(infoContainer);
 
     var picsCommunityLabel = document.createElement('span');
     $(picsCommunityLabel).addClass('picsCommunityLabel');
