@@ -12,6 +12,7 @@ namespace Photicon.Models
         public Pictures()
         {
             TagsList = new HashSet<Tags>();
+            CommentsList = new HashSet<Comments>();
             UsersThatLiked = new HashSet<Users>();
         }
 
@@ -24,13 +25,13 @@ namespace Photicon.Models
         public DateTime UploadDate { get; set; }
         public bool Visibility { get; set; }
         public int Likes { get; set; }
-        public List<string> CommentariesList { get; set; }
 
         [ForeignKey("User")]
         public string UserFK { get; set; }
         public virtual Users User { get; set; }
 
         public virtual ICollection<Tags> TagsList { get; set; }
+        public virtual ICollection<Comments> CommentsList { get; set; }
         public virtual ICollection<Users> UsersThatLiked { get; set; }
     }
 }

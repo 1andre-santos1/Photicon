@@ -16,6 +16,7 @@ namespace Photicon.Models
         //tabelas na Base de Dados
         public virtual DbSet<Pictures> Pictures { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
+        public virtual DbSet<Comments> Comments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

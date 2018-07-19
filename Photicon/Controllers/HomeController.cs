@@ -71,7 +71,6 @@ namespace Photicon.Controllers
                     Users user = db.Users.Where(m => m.Id == Id).Select(m => m).SingleOrDefault();
                     Pictures pic = new Pictures();
                     pic.User = user;
-                    pic.CommentariesList = new List<string>();
                     pic.Description = PictureDescription;
                     pic.Link = "";
                     pic.Path = path.Substring(path.IndexOf("UserPictures") - 1);

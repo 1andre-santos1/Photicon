@@ -17,12 +17,15 @@ namespace Photicon.Models
         {
             LikedPictures = new HashSet<Pictures>();
             PicturesList = new HashSet<Pictures>();
+            CommentsList = new HashSet<Comments>();
         }
 
         public string ProfilePhoto { get; set; }
         public virtual ICollection<Pictures> LikedPictures { get; set; }
 
         public virtual ICollection<Pictures> PicturesList { get; set; }
+
+        public virtual ICollection<Comments> CommentsList { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Users> manager)
         {
