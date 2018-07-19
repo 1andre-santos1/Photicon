@@ -39,7 +39,7 @@
                     <a href='@Url.Action("Community", "Home", new {Id = @Model.User.Id})'>
                         <span class="mastheah-brand" style="font-size: 30px;"><img src="~/Images/community.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right:15px;" />Community</span>
                     </a>
-                    <a href='@Url.Action("AddPicture", "Home", new {Id = @Model.User.Id})'>
+                    <a href='@Url.Action("Add", "Pictures", new {Id = @Model.User.Id})'>
                         <span class="mastheah-brand" style="font-size: 30px;"><img src="/Images/add.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right:15px;" />Add Picture</span>
                     </a>
                     <div class="dropdown" style="padding:5px;">
@@ -93,7 +93,7 @@
             <img class="picture filter saturate" src="@Model.Picture.Path" style="margin-bottom: 20px; width:15%; height:100px;object-fit:cover;margin-right:10px;">
             <img class="picture filter invert" src="@Model.Picture.Path" style="margin-bottom: 20px; width:15%; height:100px;object-fit:cover;">
 
-            @using (Html.BeginForm("EditPicture", "Home", new { UserId = @Model.User.Id, Id = @Model.Picture.Id }, FormMethod.Post, new { id = "imageForm" }))
+            @using (Html.BeginForm("Edit", "Pictures", new { UserId = @Model.User.Id, Id = @Model.Picture.Id }, FormMethod.Post, new { id = "imageForm" }))
             {
                 <input type="hidden" name="imageData" id="imageData" />
                 <input type="submit" class="btn btn-success" value="Save Changes" />
