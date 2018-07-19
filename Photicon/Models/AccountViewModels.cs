@@ -59,6 +59,8 @@ namespace Photicon.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public List<Pictures> Pictures { get; set; }
     }
 
     public class RegisterViewModel

@@ -16,7 +16,16 @@ namespace Photicon.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            List<Pictures> pics = new List<Pictures>();
+            foreach (var picture in db.Pictures)
+                if (picture.Visibility)
+                    pics.Add(picture);
+
+            pics = pics.OrderByDescending(m => m.UploadDate).ToList();
+
+            var model = new LoginViewModel { Pictures = pics};
+
+            return View(model);
         }
 
         [Authorize]
