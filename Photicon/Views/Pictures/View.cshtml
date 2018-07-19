@@ -3,6 +3,7 @@
     <div id="gallery">
         @Html.Partial("_MainNavbar", Model.User)
         <div class="container text-center">
+
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding:0">
                 <span id="PictureDescriptionText" style="font-size:xx-large;float:left;margin-bottom:10px;">@Model.Picture.Description</span>
                 <div class="picContainer" style="display:inline-block;position:relative; width:100%; margin-bottom:10px;float:left;">
@@ -37,7 +38,16 @@
                     <p align="left" style="margin-bottom:0px;">
                         <img src="@Model.Picture.Path" style="width: 100%; height: 350px; object-fit: cover;" id="imageShowcase">
                     </p>
+                    <div id="commentsBoxContainer" style="width:100%;height:400px; background-color:#222;position:absolute;margin-top:4px;border:2px solid #D43546;padding:20px;">
+                        <p style="height:50px;text-align:left;font-size:20px;">
+                            <img src="@Model.User.ProfilePhoto" style="width: 35px; height: 35px;border-radius:35px; object-fit:cover;" />
+                            <b>@Model.User.UserName</b>
+                            So beautiful...
+                        </p>
+                    </div>
                 </div>
+            </div>
+            <div id="infoContainer" style="float:right;">
                 @using (Html.BeginForm("Edit", "Pictures", new { PictureId = @Model.Picture.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
