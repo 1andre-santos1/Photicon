@@ -19,6 +19,7 @@ namespace Photicon.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(string Id)
@@ -60,6 +61,7 @@ namespace Photicon.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        [Authorize]
         public ActionResult Edit(string Id)
         {
             if (!User.Identity.IsAuthenticated || Id == null)
@@ -69,6 +71,7 @@ namespace Photicon.Controllers
             return View(user);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(HttpPostedFileBase file, string Id)
         {

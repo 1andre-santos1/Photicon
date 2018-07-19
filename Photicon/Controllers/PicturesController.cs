@@ -13,24 +13,19 @@ namespace Photicon.Controllers
     {
         private PhoticonDB db = new PhoticonDB();
 
+        [Authorize]
         public ActionResult Add(string Id)
         {
-            if (!User.Identity.IsAuthenticated || Id == null)
-                return RedirectToAction("Index","Home");
-
             Users user = new Users();
             user = db.Users.Where(m => m.Id == Id).Select(m => m).SingleOrDefault();
 
             return View(user);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Add(HttpPostedFileBase file, string Id, string PictureDescription, bool Visibility, bool IsProfilePicture, ICollection<string> Tag)
         {
-
-            if (!User.Identity.IsAuthenticated || Id == null)
-                return RedirectToAction("Index","Home");
-
             if (file != null && file.ContentLength > 0)
             {
                 try
@@ -96,14 +91,12 @@ namespace Photicon.Controllers
             return RedirectToAction("MainPage", "Home", new { Id = Id });
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int? Id)
         {
-            if (!User.Identity.IsAuthenticated || Id == null)
-                return RedirectToAction("Index","Home");
-
-            //Session["DeleteSuccess"] = "No";
+             //Session["DeleteSuccess"] = "No";
             Pictures pictureToDelete = db.Pictures.Where(m => m.Id == Id).Select(m => m).SingleOrDefault();
             string userId = "";
 
@@ -138,12 +131,9 @@ namespace Photicon.Controllers
             return RedirectToAction("MainPage", "Home", new { Id = userId });
         }
 
-
-
+        [Authorize]
         public ActionResult View(int PictureId)
         {
-            if (!User.Identity.IsAuthenticated)
-                return RedirectToAction("Index","Home");
             Pictures pic = db.Pictures.Where(m => m.Id == PictureId).Select(m => m).SingleOrDefault();
             Users user = pic.User;//
 
@@ -152,12 +142,10 @@ namespace Photicon.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult View(int PictureId, string UserId, ICollection<string> Tag, bool Visibility, bool IsProfilePicture, string PictureDescription)
         {
-            if (!User.Identity.IsAuthenticated)
-                return RedirectToAction("Index","Home");
-
             Pictures pic = db.Pictures.Where(m => m.Id == PictureId).Select(m => m).SingleOrDefault();
             Users user = pic.User;
 
@@ -213,10 +201,9 @@ namespace Photicon.Controllers
             return RedirectToAction("MainPage", "Home", new { Id = UserId });
         }
 
+        [Authorize]
         public ActionResult Edit(int PictureId)
         {
-            if (!User.Identity.IsAuthenticated)
-                return RedirectToAction("Index","Home");
             Pictures pic = db.Pictures.Where(m => m.Id == PictureId).Select(m => m).SingleOrDefault();
             Users user = pic.User;
 
@@ -225,16 +212,16 @@ namespace Photicon.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult Download(string PicturePath)
         {
-            if (!User.Identity.IsAuthenticated)
-                return RedirectToAction("Index","Home");
             string path = AppDomain.CurrentDomain.BaseDirectory;
             byte[] fileBytes = System.IO.File.ReadAllBytes(path + PicturePath.Substring(PicturePath.LastIndexOf("UserPictures\\") - 1));
             string fileName = PicturePath.Substring(PicturePath.LastIndexOf("UserPictures\\") - 1);
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
+        [Authorize]
         public ActionResult Like(string UserId, int PictureId)
         {
             Pictures PicBeingLiked = db.Pictures.Where(m => m.Id == PictureId).Select(m => m).SingleOrDefault();

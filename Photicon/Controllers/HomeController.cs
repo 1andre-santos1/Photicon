@@ -33,10 +33,9 @@ namespace Photicon.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult MainPage(string Id)
         {
-            if (!User.Identity.IsAuthenticated || Id == null)
-                return RedirectToAction("Index");
             Users user = new Users();
             user = db.Users.Where(m => m.Id == Id).Select(m => m).SingleOrDefault();
             user.PicturesList = db.Pictures.Where(m => m.UserFK == user.Id).Select(m => m).ToList();
@@ -44,11 +43,9 @@ namespace Photicon.Controllers
             return View(user);
         }
 
+        [Authorize]
         public ActionResult ViewOtherUserProfile(string UserId, string ViewedUserId)
         {
-            if (!User.Identity.IsAuthenticated || UserId == null)
-                return RedirectToAction("Index");
-
             Users user = db.Users.Where(m => m.Id == UserId).Select(m => m).SingleOrDefault();
             Users viewedUser = db.Users.Where(m => m.Id == ViewedUserId).Select(m => m).SingleOrDefault();
 
@@ -56,11 +53,9 @@ namespace Photicon.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult ViewOtherUserPicture(string UserId, int ViewedPictureId)
         {
-            if (!User.Identity.IsAuthenticated || UserId == null)
-                return RedirectToAction("Index");
-
             Users user = db.Users.Where(m => m.Id == UserId).Select(m => m).SingleOrDefault();
             Pictures viewedPicture = db.Pictures.Where(m => m.Id == ViewedPictureId).Select(m => m).SingleOrDefault();
 
@@ -68,11 +63,9 @@ namespace Photicon.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult Community(string Id)
         {
-            if (!User.Identity.IsAuthenticated || Id == null)
-                return RedirectToAction("Index");
-
             Users user = db.Users.Where(m => m.Id == Id).Select(m => m).SingleOrDefault();
 
             List<Pictures> pics = new List<Pictures>();
