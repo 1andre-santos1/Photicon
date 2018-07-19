@@ -345,6 +345,9 @@
     <Content Include="Views\Home\Community.cshtml" />
     <Content Include="Views\Pictures\Edit.cshtml" />
     <Content Include="Views\Home\ViewOtherUserProfile.cshtml" />
+    <Content Include="Views\Shared\_MainNavbar.cshtml" />
+    <Content Include="Views\Home\_PictureGalleryPartialView.cshtml" />
+    <Content Include="Views\Home\ViewOtherUserPicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,50 +1,7 @@
-﻿
+﻿@model Photicon.Models.Users
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <div id="gallery">
-        <header class="masthead mb-auto" style="margin-bottom: 0px !important;">
-            <div class="inner">
-                <nav class="navbar justify-content-between">
-                    <a href='@Url.Action("MainPage", "Home",new{Id=@Model.Id})'>
-                        <span class="masthead-brand" style="font-size: 30px;"><img src="/Images/camera.png" style="width: 40px; height: 40px; margin-right:15px;" />Gallery</span>
-                    </a>
-                    <a href='@Url.Action("Community", "Home", new {Id = @Model.Id})'>
-                        <span class="mastheah-brand" style="font-size: 30px;"><img src="~/Images/community.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right:15px;" />Community</span>
-                    </a>
-                    <a href='@Url.Action("Add", "Pictures", new {Id = @Model.Id})'>
-                        <span class="mastheah-brand" style="font-size: 30px;"><img src="/Images/add.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right:15px;" />Add Picture</span>
-                    </a>
-                    <div class="dropdown" style="padding:5px;">
-                        <span class="mastheah-brand dropdown-toggle" data-toggle="dropdown" id="userMenu" style="font-size:large; color:#ddd; cursor:pointer;" onmouseover="this.style.color = '#fff'" onmouseout="this.style.color = '#ddd'">
-                            @if (Model.ProfilePhoto == null)
-                            {
-                                <img src="~/Images/male.png" style="width: 50px; height: 50px; margin-left: 10px;margin-right:5px; border-radius:35px; object-fit:cover;" />
-                            }
-                            else
-                            {
-                                <img src="@Model.ProfilePhoto" style="width: 50px; height: 50px; margin-left: 10px;margin-right:5px; border-radius:35px; object-fit:cover;" />
-
-                            }
-                            @Model.UserName
-                        </span>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="userMenu" style="background-color:#333;padding:20px;">
-                            <li role="presentation" style="margin-bottom:10px">
-                                <a href='@Url.Action("Edit", "Users",new{Id=@Model.Id})' class="btn btn-danger" style="width:100%;">
-                                    Profile
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <input type="submit" class="btn btn-danger" value="LogOff" style="width:100%;" />
-                                }
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-                <hr style="border:1px solid #E54657; margin-top: 2px;">
-            </div>
-        </header>
+        @Html.Partial("_MainNavbar",Model)
         <div class="container text-center">
             <div class="row" style="display:flex;flex-wrap:wrap;width:100%; text-align:center;">
                 @{
