@@ -102,6 +102,26 @@ namespace Photicon.Migrations
                 context.Tags.AddOrUpdate(tag);
                 picToInsert.TagsList.Add(tag);
 
+                Comments cm = new Comments();
+                cm.Comment = "So cute!!!";
+                Users userThatCommented = context.Users.Where(m => m.UserName == "Barbara").SingleOrDefault();
+                cm.User = userThatCommented;
+                cm.Picture = picToInsert;
+                cm.Date = new DateTime(2018,5,30);
+                userThatCommented.CommentsList.Add(cm);
+                picToInsert.CommentsList.Add(cm);
+                context.Users.AddOrUpdate(userThatCommented);
+
+                Comments cm2 = new Comments();
+                cm2.Comment = "Thank you Barbara";
+                Users userThatCommented2 = context.Users.Where(m => m.UserName == "Sam").SingleOrDefault();
+                cm2.User = userThatCommented2;
+                cm2.Picture = picToInsert;
+                cm2.Date = new DateTime(2018, 5, 30);
+                userThatCommented2.CommentsList.Add(cm2);
+                picToInsert.CommentsList.Add(cm2);
+                context.Users.AddOrUpdate(userThatCommented2);
+
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
@@ -293,6 +313,7 @@ namespace Photicon.Migrations
                 context.Users.AddOrUpdate(user);
                 context.Pictures.AddOrUpdate(picToInsert);
             }
+
         }
     }
 }
