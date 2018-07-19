@@ -27,7 +27,7 @@
                         </span>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="userMenu" style="background-color:#333;padding:20px;">
                             <li role="presentation" style="margin-bottom:10px">
-                                <a href='@Url.Action("EditProfile", "Home",new{Id=@Model.User.Id})' class="btn btn-danger" style="width:100%;">
+                                <a href='@Url.Action("Edit", "Users",new{Id=@Model.User.Id})' class="btn btn-danger" style="width:100%;">
                                     Edit Profile
                                 </a>
                             </li>

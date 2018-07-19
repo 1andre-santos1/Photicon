@@ -29,7 +29,7 @@
                         </span>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="userMenu" style="background-color:#333;padding:20px; border-radius:20px;">
                             <li role="presentation" style="margin-bottom:10px">
-                                <a href='@Url.Action("EditProfile", "Home", new { Id = @Model.Id })' class="btn btn-danger" style="width:100%;">
+                                <a href='@Url.Action("Edit", "Users", new { Id = @Model.Id })' class="btn btn-danger" style="width:100%;">
                                     Profile
                                 </a>
                             </li>
@@ -67,7 +67,7 @@
                 </div>
                 <button id="preRemovalButton" type="button" class="btn btn-danger" style="position: absolute; left: 50%; top: 95%; width:50%;">Delete Profile</button>
 
-                @using (Html.BeginForm("EditProfile", "Home", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Edit", "Users", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <p align="left">
                         <input type="file" name="file" id="imageFile" onchange="readfile(this);" style="margin-bottom: 10px; margin-right: 15px;" accept="image/*" />
@@ -147,7 +147,7 @@
                         <p style="font-size:large">You will lose everything</p>
                     </div>
                     <div class="modal-footer">
-                        @using (Html.BeginForm("DeleteProfile", "Home", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        @using (Html.BeginForm("Delete", "Users", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
                             <input type="submit" class="btn btn-danger" value="Remove" />
