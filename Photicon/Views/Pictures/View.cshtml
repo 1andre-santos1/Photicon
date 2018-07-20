@@ -81,7 +81,7 @@
                         </div>
                         <p style="text-align:left;font-size:16px;border-radius:30px;background-color:#5a5a5a;">
                             <img src="@Model.User.ProfilePhoto" style="width: 40px; height: 40px;border-radius:35px; object-fit:cover;margin-right:10px;" />
-                            <input id="commentInput" type="text" name="Comment" placeholder="Write a comment..." style="border-radius:20px;border:0px;background-color:#5a5a5a;width:85%;outline:none;color:#ffffff;font-size:16px;" />
+                            <input id="commentInput" type="text" name="Comment" placeholder="Write a comment..." style="border-radius:20px;border:0px;background-color:#5a5a5a;width:85%;outline:none;color:#ffffff;font-size:16px;padding:5px;" autocomplete="off"/>
                         </p>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Comments/AddWithAjax?UserId=" + userId + "&PictureId=" + pictureId + "&Comment=" + comment,
+                url: "/Comments/Add?UserId=" + userId + "&PictureId=" + pictureId + "&Comment=" + comment,
                 contentType: "html",
                 success: function (result) {
                     if (result.length == 0) {
@@ -226,6 +226,9 @@
                         var span = document.createElement('span'); $(span).addClass('commentsText'); $(span).text(result.Comment); $(p).append(span);
                         var br = document.createElement('br'); $(p).append(br);
                         commentsContainer.append(p);
+
+                        $('#commentInput').val("");
+                        $('#commentInput').blur();
                     }
                 }
             });
