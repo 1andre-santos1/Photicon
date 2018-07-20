@@ -36,5 +36,23 @@ namespace Photicon.Controllers
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public EmptyResult Remove(string UserName, int PictureId, string Comment)
+        {
+            Users user = db.Users.Where(m => m.UserName == UserName).SingleOrDefault();
+            Pictures pic = db.Pictures.Where(m => m.Id == PictureId).SingleOrDefault();
+            Comments comment = db.Comments.Where(m => m.Comment == Comment).SingleOrDefault();
+
+            user.CommentsList.Remove(comment);
+            pic.CommentsList.Remove(comment);
+
+            db.Users.AddOrUpdate(user);
+            db.Pictures.AddOrUpdate(pic);
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
     }
 }

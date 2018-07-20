@@ -158,7 +158,7 @@ namespace Photicon.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Users { UserName = model.UserName, Email = model.Email };
+                var user = new Users { UserName = model.UserName, Email = model.Email, ProfilePhoto = "/Images/male.png" };
                 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
