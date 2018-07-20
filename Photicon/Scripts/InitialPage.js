@@ -1,10 +1,10 @@
 window.onload = function () {
     $(".picContainer").hover(
         function (event) {
-            $(this).children(".picBanner").slideDown("slow");
+            $(this).children(".picBanner").slideDown(6000,"swing");
         },
         function (event) {
-            $(this).children(".picBanner").slideUp("slow");
+            $(this).children(".picBanner").slideUp(6000,"swing");
         }
     );
     

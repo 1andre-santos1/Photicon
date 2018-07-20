@@ -3,7 +3,7 @@
     <div id="gallery">
         @Html.Partial("_MainNavbar", Model.User)
         <div class="container text-center">
-            <div id="pictures">
+            <div id="pictures" style="display:none;">
                 @Html.Partial("_PictureGalleryPartialView")
             </div>
         </div>
@@ -30,4 +30,7 @@
             $(this).siblings('.popup').css('display', 'none');
         }
     );
+    $(document).ready(function () {
+        $('#pictures').fadeIn(1500);
+    });
 </script>

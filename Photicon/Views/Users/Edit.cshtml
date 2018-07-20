@@ -20,7 +20,7 @@
                         }
                     </p>
                 </div>
-                <button id="preRemovalButton" type="button" class="btn btn-danger" style="position: absolute; left: 50%; top: 95%; width:50%;">Delete Profile</button>
+
 
                 @using (Html.BeginForm("Edit", "Users", new { Id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
@@ -31,6 +31,7 @@
                     </p>
                 }
             </div>
+
             <p style="font-size:xx-large;background-color:#222;">Information</p>
             <p style="margin-bottom:0px;">
                 <span style="font-size:x-large;">
@@ -92,6 +93,9 @@
                         @likesReceived
                     }
                 </span>
+            </p>
+            <p align="left" style="text-align:left;">
+                <button id="preRemovalButton" type="button" class="btn btn-danger">Delete Profile</button>
             </p>
         </div>
         <div class="modal" tabindex="-1" role="dialog">

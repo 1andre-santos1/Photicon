@@ -3,104 +3,106 @@
     <div id="gallery">
         @Html.Partial("_MainNavbar",Model)
         <div class="container text-center">
-            <div class="row" style="display:flex;flex-wrap:wrap;width:100%; text-align:center;">
-                @{
-                    int i = 0;
-                    foreach (var picture in @Model.PicturesList)
-                    {
-                        List<int> ImageSizes = new List<int>();
-                        switch (i)
+            <div id="pictures" style="display:none;">
+                <div class="row" style="display:flex;flex-wrap:wrap;width:100%; text-align:center;">
+                    @{
+                        int i = 0;
+                        foreach (var picture in @Model.PicturesList)
                         {
-                            case 1:
-                            case 5:
-                                ImageSizes = new List<int> { 7, 7, 7, 12 };
-                                break;
+                            List<int> ImageSizes = new List<int>();
+                            switch (i)
+                            {
+                                case 1:
+                                case 5:
+                                    ImageSizes = new List<int> { 7, 7, 7, 12 };
+                                    break;
 
-                            case 2:
-                            case 4:
-                                ImageSizes = new List<int> { 3, 3, 3, 12 };
-                                break;
-                            case 3:
-                                ImageSizes = new List<int> { 5, 5, 5, 12 };
-                                break;
+                                case 2:
+                                case 4:
+                                    ImageSizes = new List<int> { 3, 3, 3, 12 };
+                                    break;
+                                case 3:
+                                    ImageSizes = new List<int> { 5, 5, 5, 12 };
+                                    break;
 
-                            case 0:
-                            case 6:
-                                ImageSizes = new List<int> { 4, 4, 4, 12 };
-                                break;
-                        }
-                        string bGrid = "col-lg-" + ImageSizes[0] + " col-md-" + ImageSizes[1] + " col-sm-" + ImageSizes[2] + " col-xs-" + ImageSizes[3];
-                        <div class=@bGrid style="padding:0; display:inline-block;margin:0px 10px 10px 0px;">
+                                case 0:
+                                case 6:
+                                    ImageSizes = new List<int> { 4, 4, 4, 12 };
+                                    break;
+                            }
+                            string bGrid = "col-lg-" + ImageSizes[0] + " col-md-" + ImageSizes[1] + " col-sm-" + ImageSizes[2] + " col-xs-" + ImageSizes[3];
+                            <div class=@bGrid style="padding:0; display:inline-block;margin:0px 10px 10px 0px;">
 
-                            <a href="@Url.Action("View","Pictures",new { PictureId = picture.Id})">
-                                <div class="picContainer" style="display:inline-block;position:relative; width:100%;cursor:pointer;">
-                                    <div class="picBanner" style="position:absolute; background-color:rgba(0,0,0,0.5); color:white; right:0;bottom:0;height:100%;width:100%; padding:20px; display:none;">
-                                        @if (picture.Visibility == false)
-                                        {
-                                            <img src="~/Images/lock.png" style="width:30px; height:30px; margin-bottom:20px" />
-                                            <br />
-                                        }
-                                        <span style="font-size:x-large;">@picture.Description</span>
-
-                                        <br />
-                                        <span style="float:left;" class="popoverLikes"><img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />@picture.Likes</span>
-                                        <span style="float:right;">@picture.UploadDate.Day/@picture.UploadDate.Month/@picture.UploadDate.Year</span>
-                                        <br />
-                                        <div style="float:left; background-color:rgba(0,0,0,0.6); display:none;" class="popup">
-                                            @{
-
-                                                foreach (var user in picture.UsersThatLiked)
-                                                {
-                                                    <p>@user.UserName</p>
-                                                }
+                                <a href="@Url.Action("View","Pictures",new { PictureId = picture.Id})">
+                                    <div class="picContainer" style="display:inline-block;position:relative; width:100%;cursor:pointer;">
+                                        <div class="picBanner" style="position:absolute; background-color:rgba(0,0,0,0.5); color:white; right:0;bottom:0;height:100%;width:100%; padding:20px; display:none;">
+                                            @if (picture.Visibility == false)
+                                            {
+                                                <img src="~/Images/lock.png" style="width:30px; height:30px; margin-bottom:20px" />
+                                                <br />
                                             }
-                                        </div>
-                                        <div style="margin:auto;width:50%;">
-                                            @{
-                                                Random r = new Random();
-                                                foreach (var tag in picture.TagsList)
-                                                {
-                                                    int n = r.Next(0, 4);
-                                                    switch (n)
+                                            <span style="font-size:x-large;">@picture.Description</span>
+
+                                            <br />
+                                            <span style="float:left;" class="popoverLikes"><img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />@picture.Likes</span>
+                                            <span style="float:right;">@picture.UploadDate.Day/@picture.UploadDate.Month/@picture.UploadDate.Year</span>
+                                            <br />
+                                            <div style="float:left; background-color:rgba(0,0,0,0.6); display:none;" class="popup">
+                                                @{
+
+                                                    foreach (var user in picture.UsersThatLiked)
                                                     {
-                                                        case 0:
-                                                            <div id="tagShowcase" style="width:40%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                            break;
-                                                        case 1:
-                                                            <div id="tagShowcase" style="width:40%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                            break;
-                                                        case 2:
-                                                            <div id="tagShowcase" style="width:40%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                            break;
-                                                        case 3:
-                                                            <div id="tagShowcase" style="width:40%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
-                                                            break;
+                                                        <p>@user.UserName</p>
                                                     }
                                                 }
-                                            }
+                                            </div>
+                                            <div style="margin:auto;width:50%;">
+                                                @{
+                                                    Random r = new Random();
+                                                    foreach (var tag in picture.TagsList)
+                                                    {
+                                                        int n = r.Next(0, 4);
+                                                        switch (n)
+                                                        {
+                                                            case 0:
+                                                                <div id="tagShowcase" style="width:40%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                break;
+                                                            case 1:
+                                                                <div id="tagShowcase" style="width:40%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                break;
+                                                            case 2:
+                                                                <div id="tagShowcase" style="width:40%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                break;
+                                                            case 3:
+                                                                <div id="tagShowcase" style="width:40%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                break;
+                                                        }
+                                                    }
+                                                }
+                                            </div>
                                         </div>
+                                        <img class="picture" src="@picture.Path" style="margin-bottom: 0; width:100%;height:350px;object-fit:cover;">
+
                                     </div>
-                                    <img class="picture" src="@picture.Path" style="margin-bottom: 0; width:100%;height:350px;object-fit:cover;">
+                                </a>
+                            </div>
+                            i++;
+                            if (i > 6)
+                            {
+                                i = 0;
+                            }
 
-                                </div>
-                            </a>
-                        </div>
-                        i++;
-                        if (i > 6)
-                        {
-                            i = 0;
                         }
-
+                        if (@Model.PicturesList.Count <= 0)
+                        {
+                            <h1 style="margin: auto;">No Pictures Yet!!!</h1>
+                        }
                     }
-                    if (@Model.PicturesList.Count <= 0)
-                    {
-                        <h1 style="margin: auto;">No Pictures Yet!!!</h1>
-                    }
-                }
 
+                </div>
+            </div>
             </div>
         </div>
-    </div>
 </div>
 <script>
     $(".dropdown").hover(
@@ -123,5 +125,8 @@
             $(this).siblings('.popup').css('display', 'none');
         }
     );
+    $(document).ready(function () {
+        $('#pictures').fadeIn(1500);
+    });
 </script>
 
