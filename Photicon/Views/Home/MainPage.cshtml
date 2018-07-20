@@ -1,10 +1,10 @@
 ﻿@model Photicon.Models.Users
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <div id="gallery">
-        @Html.Partial("_MainNavbar",Model)
+        @Html.Partial("_MainNavbar", Model)
         <div class="container text-center">
             <div id="pictures" style="display:none;">
-                <div class="row" style="display:flex;flex-wrap:wrap;width:100%; text-align:center;">
+                <div class="row">
                     @{
                         int i = 0;
                         foreach (var picture in @Model.PicturesList)
@@ -34,20 +34,19 @@
                             <div class=@bGrid style="padding:0; display:inline-block;margin:0px 10px 10px 0px;">
 
                                 <a href="@Url.Action("View","Pictures",new { PictureId = picture.Id})">
-                                    <div class="picContainer" style="display:inline-block;position:relative; width:100%;cursor:pointer;">
-                                        <div class="picBanner" style="position:absolute; background-color:rgba(0,0,0,0.5); color:white; right:0;bottom:0;height:100%;width:100%; padding:20px; display:none;">
+                                    <div class="picContainer">
+                                        <div class="picBanner">
                                             @if (picture.Visibility == false)
                                             {
-                                                <img src="~/Images/lock.png" style="width:30px; height:30px; margin-bottom:20px" />
+                                                <img class="picBannerPrivateImg" src="~/Images/lock.png" />
                                                 <br />
                                             }
-                                            <span style="font-size:x-large;">@picture.Description</span>
-
+                                            <span class="picBannerDescription">@picture.Description</span>
                                             <br />
-                                            <span style="float:left;" class="popoverLikes"><img src="~/Images/thumbsUp.png" style="width:30px; height:30px; margin-right:10px;" />@picture.Likes</span>
-                                            <span style="float:right;">@picture.UploadDate.Day/@picture.UploadDate.Month/@picture.UploadDate.Year</span>
+                                            <span class="popoverLikes"><img class="picBannerLikesImg" src="~/Images/thumbsUp.png" />@picture.Likes</span>
+                                            <span class="picBannerUploadDate">@picture.UploadDate.Day/@picture.UploadDate.Month/@picture.UploadDate.Year</span>
                                             <br />
-                                            <div style="float:left; background-color:rgba(0,0,0,0.6); display:none;" class="popup">
+                                            <div class="popup picBannerLikesPopover">
                                                 @{
 
                                                     foreach (var user in picture.UsersThatLiked)
@@ -56,7 +55,7 @@
                                                     }
                                                 }
                                             </div>
-                                            <div style="margin:auto;width:50%;">
+                                            <div class="picBannerTagContainer">
                                                 @{
                                                     Random r = new Random();
                                                     foreach (var tag in picture.TagsList)
@@ -65,24 +64,23 @@
                                                         switch (n)
                                                         {
                                                             case 0:
-                                                                <div id="tagShowcase" style="width:40%;background-color:#243;border:2px solid #465;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                <div class="tagShowcase" style="background-color:#243;border:2px solid #465;">@tag.Name</div>
                                                                 break;
                                                             case 1:
-                                                                <div id="tagShowcase" style="width:40%;background-color:#a32;border:2px solid #c54;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                <div class="tagShowcase" style="background-color:#a32;border:2px solid #c54;">@tag.Name</div>
                                                                 break;
                                                             case 2:
-                                                                <div id="tagShowcase" style="width:40%;background-color:#349;border:2px solid #56b;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                <div class="tagShowcase" style="background-color:#349;border:2px solid #56b;">@tag.Name</div>
                                                                 break;
                                                             case 3:
-                                                                <div id="tagShowcase" style="width:40%;background-color:#b82;border:2px solid #da4;border-radius:20px;overflow:hidden;display:inline-block;">@tag.Name</div>
+                                                                <div class="tagShowcase" style="background-color:#b82;border:2px solid #da4;">@tag.Name</div>
                                                                 break;
                                                         }
                                                     }
                                                 }
                                             </div>
                                         </div>
-                                        <img class="picture" src="@picture.Path" style="margin-bottom: 0; width:100%;height:350px;object-fit:cover;">
-
+                                        <img class="picture" src="@picture.Path">
                                     </div>
                                 </a>
                             </div>
@@ -95,14 +93,13 @@
                         }
                         if (@Model.PicturesList.Count <= 0)
                         {
-                            <h1 style="margin: auto;">No Pictures Yet!!!</h1>
+                            <h1 class="noPicturesText">No Pictures Yet!!!</h1>
                         }
                     }
-
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 </div>
 <script>
     $(".dropdown").hover(

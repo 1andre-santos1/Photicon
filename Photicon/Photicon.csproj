@@ -244,6 +244,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\InitialPage.css" />
+    <Content Include="Content\PictureGallery.css" />
     <Content Include="Frontend\About.html" />
     <Content Include="Frontend\AboutData.js" />
     <Content Include="Frontend\AboutApp.js" />
