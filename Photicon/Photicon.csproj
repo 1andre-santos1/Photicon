@@ -228,6 +228,7 @@
     <Compile Include="Models\Api\UserModel.cs" />
     <Compile Include="Models\Comments.cs" />
     <Compile Include="Models\CommunityPicturesViewModels.cs" />
+    <Compile Include="Models\GetCommentsViewModels.cs" />
     <Compile Include="Models\PhoticonDB.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Pictures.cs" />
