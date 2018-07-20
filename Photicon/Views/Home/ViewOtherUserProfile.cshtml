@@ -62,8 +62,20 @@
                     }
                 </span>
             </p>
-
-
+            @if (!Model.User.Friends.Contains(Model.ViewedUser))
+            {
+                if (Model.User.FriendRequestsSentPending.Contains(Model.ViewedUser))
+                {
+                    <input type="submit" class="btn btn-default" value="Request Pending" />
+                }
+                else
+                {
+                    using (Html.BeginForm("AddFriend", "Users", new { UserId = @Model.User.Id, ViewedUserId = @Model.ViewedUser.Id }, FormMethod.Post, new { id = "imageForm" }))
+                    {
+                        <input type="submit" class="btn btn-success" value="Add Friend" />
+                    }
+                }
+            }
         </div>
     </div>
 </div>

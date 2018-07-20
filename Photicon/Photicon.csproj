@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201807191740108_PopulateComments.Designer.cs">
       <DependentUpon>201807191740108_PopulateComments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807201344186_AddFriends.cs" />
+    <Compile Include="Migrations\201807201344186_AddFriends.Designer.cs">
+      <DependentUpon>201807201344186_AddFriends.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Api\UserModel.cs" />
@@ -381,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807191740108_PopulateComments.resx">
       <DependentUpon>201807191740108_PopulateComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807201344186_AddFriends.resx">
+      <DependentUpon>201807201344186_AddFriends.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

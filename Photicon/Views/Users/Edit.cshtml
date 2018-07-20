@@ -97,6 +97,31 @@
             <p align="left" style="text-align:left;">
                 <button id="preRemovalButton" type="button" class="btn btn-danger">Delete Profile</button>
             </p>
+            <h2>Friend</h2>
+            @foreach (var friend in Model.Friends)
+            {
+                <p>
+                    <img src="@friend.ProfilePhoto" style="width: 40px; height: 40px;border-radius:35px; object-fit:cover;margin-right:10px;" />
+                    <span>@friend.UserName</span>
+                </p>
+            }
+            <h2>Friends Request</h2>
+            @foreach (var requestUser in Model.FriendRequestsReceivedPending)
+            {
+                <p>
+                    <img src="@requestUser.ProfilePhoto" style="width: 40px; height: 40px;border-radius:35px; object-fit:cover;margin-right:10px;" />
+                    <span>@requestUser.UserName</span>
+                    <br />
+                    @using (Html.BeginForm("AcceptFriendRequest", "Users", new { UserId = @Model.Id, RequestUserId = requestUser.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="submit" class="btn btn-success" value="Accept Request" />
+                    }
+                    @using (Html.BeginForm("RemoveFriendRequest", "Users", new { UserId = @Model.Id, RequestUserId = requestUser.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="submit" class="btn btn-danger" value="Remove Request" />
+                    }
+                </p>
+            }
         </div>
         <div class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">

@@ -104,5 +104,59 @@ namespace Photicon.Controllers
 
             return RedirectToAction("MainPage", "Home", new { Id = Id });
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddFriend(string UserId, string ViewedUserId)
+        {
+            Users user = db.Users.Where(m => m.Id == UserId).SingleOrDefault();
+            Users viewedUser = db.Users.Where(m => m.Id == ViewedUserId).SingleOrDefault();
+
+            viewedUser.FriendRequestsReceivedPending.Add(user);
+            user.FriendRequestsSentPending.Add(viewedUser);
+
+            db.Users.AddOrUpdate(viewedUser);
+            db.Users.AddOrUpdate(user);
+            db.SaveChanges();
+
+            return RedirectToAction("ViewOtherUserProfile", "Home", new { UserId = UserId, ViewedUserId = ViewedUserId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AcceptFriendRequest(string UserId, string RequestUserId)
+        {
+            Users user = db.Users.Where(m => m.Id == UserId).SingleOrDefault();
+            Users requestUser = db.Users.Where(m => m.Id == RequestUserId).SingleOrDefault();
+
+            user.FriendRequestsReceivedPending.Remove(requestUser);
+            requestUser.FriendRequestsSentPending.Remove(user);
+
+            user.Friends.Add(requestUser);
+            requestUser.Friends.Add(user);
+
+            db.Users.AddOrUpdate(user);
+            db.Users.AddOrUpdate(requestUser);
+            db.SaveChanges();
+
+            return RedirectToAction("Edit", "Users", new { Id = UserId});
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult RemoveFriendRequest(string UserId, string RequestUserId)
+        {
+            Users user = db.Users.Where(m => m.Id == UserId).SingleOrDefault();
+            Users requestUser = db.Users.Where(m => m.Id == RequestUserId).SingleOrDefault();
+
+            user.FriendRequestsReceivedPending.Remove(requestUser);
+            requestUser.FriendRequestsSentPending.Remove(user);
+
+            db.Users.AddOrUpdate(user);
+            db.Users.AddOrUpdate(requestUser);
+            db.SaveChanges();
+
+            return RedirectToAction("Edit", "Users", new { Id = UserId });
+        }
     }
 }

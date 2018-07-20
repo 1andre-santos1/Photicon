@@ -18,14 +18,25 @@ namespace Photicon.Models
             LikedPictures = new HashSet<Pictures>();
             PicturesList = new HashSet<Pictures>();
             CommentsList = new HashSet<Comments>();
+            Friends = new HashSet<Users>();
+            FriendRequestsReceivedPending = new HashSet<Users>();
+            FriendRequestsSentPending = new HashSet<Users>();
         }
 
         public string ProfilePhoto { get; set; }
+
         public virtual ICollection<Pictures> LikedPictures { get; set; }
 
         public virtual ICollection<Pictures> PicturesList { get; set; }
 
         public virtual ICollection<Comments> CommentsList { get; set; }
+
+        public virtual ICollection<Users> Friends { get; set; }
+
+        public virtual ICollection<Users> FriendRequestsReceivedPending { get; set; }
+
+        public virtual ICollection<Users> FriendRequestsSentPending { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Users> manager)
         {
