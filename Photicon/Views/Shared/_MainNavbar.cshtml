@@ -14,6 +14,10 @@
             </a>
             <div class="dropdown" style="padding:5px;">
                 <span class="mastheah-brand dropdown-toggle" data-toggle="dropdown" id="userMenu" style="font-size:large; color:#ddd; cursor:pointer;" onmouseover="this.style.color = '#fff'" onmouseout="this.style.color = '#ddd'">
+                    @if (Model.FriendRequestsReceivedPending.Count > 0)
+                    {
+                        <img src="~/Images/notification.png" style="width:20px;height:20px;object-fit:cover;position:absolute;top:60%;left:2%;" />
+                    }
                     @if (Model.ProfilePhoto == null)
                     {
                         <img src="~/Images/male.png" style="width: 50px; height: 50px; margin-left: 10px;margin-right:5px; border-radius:35px; object-fit:cover;" />
@@ -21,7 +25,6 @@
                     else
                     {
                         <img src="@Model.ProfilePhoto" style="width: 50px; height: 50px; margin-left: 10px;margin-right:5px; border-radius:35px; object-fit:cover;" />
-
                     }
                     @Model.UserName
                 </span>

@@ -255,6 +255,7 @@
     <Content Include="Frontend\AboutStyle.css" />
     <Content Include="Images\arrowLeft.png" />
     <Content Include="Images\arrowRight.png" />
+    <Content Include="Images\notification.png" />
     <Content Include="Images\user.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
